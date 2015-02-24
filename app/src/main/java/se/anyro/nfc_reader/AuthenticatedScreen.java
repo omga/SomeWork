@@ -3,6 +3,7 @@ package se.anyro.nfc_reader;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -15,7 +16,7 @@ import com.otentico.android.nfc.ImageLoadTask;
  * An {@link Activity} which handles a broadcast of a new tag that the device
  * just discovered.
  */
-public class AuthenticatedScreen extends Activity {
+public class AuthenticatedScreen extends ActionBarActivity {
 
 	public static final String NFC_UID = "NFC_UID";
 	Button btnProductInformation;
@@ -34,8 +35,6 @@ public class AuthenticatedScreen extends Activity {
 		company_logo_url = intent.getExtras().getString(
 				MainScreen.COMPANY_IMAGE_URL);
 
-
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.authenticated_screen);
 

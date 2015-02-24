@@ -25,7 +25,7 @@
     <string name="home_screen_message_1">Scan NFC Tag</string>
 	<string name="home_screen_message_2">Place Phone close to NFC Tag</string>
 
-	<string name="auth_screen_message_0">Scan result</string>
+	<string name="scan_results_text">Scan result</string>
 	<string name="auth_screen_message_1">Authenticated by</string>
 	<string name="product_information_button">Product information</string>
 	<string name="brand_info_button">Brand\ninformation</string>

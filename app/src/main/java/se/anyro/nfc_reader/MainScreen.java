@@ -35,6 +35,7 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Window;
 
@@ -43,7 +44,7 @@ import com.otentico.android.nfc.NFCAuthInfoTask;
 import com.otentico.android.nfc.OnTaskCompleted;
 import com.otentico.android.nfc.Utils;
 
-public class MainScreen extends Activity implements OnTaskCompleted {
+public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
 	public static final String NFC_UID = "NFC_UID";
 	public static final String COMPANY_NAME = "COMPANY_NAME";
@@ -61,7 +62,8 @@ public class MainScreen extends Activity implements OnTaskCompleted {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+
 		setContentView(R.layout.main_screen);
 		if (debug) {
 			resolveIntentMock(getIntent());
