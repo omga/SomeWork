@@ -31,12 +31,12 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 
 	}
 
-	public String POST(String uid, String country, String locality,
-			String identity) {
+	public String POST(String uid, String country, String locality, String identity) {
 		String url = Utils.HOST + "api/scans/";
 		InputStream inputStream = null;
 		String result = "";
 		HttpPost httpPost;
+        Log.d("REQUEST", url);
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpParams myParams = httpclient.getParams();
@@ -57,7 +57,7 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
-
+            Log.d("REQUEST", "json param" + obj + "req: " + httpPost.toString());
 			// make GET request to the given URL
 			HttpResponse httpResponse = httpclient.execute(httpPost);
 

@@ -10,4 +10,29 @@
     <string name="error">Erreur</string>
     <string name="no_nfc">Pas de NFC trouvé sur cet appareil</string>
     <string name="nfc_disabled">Le NFC n\'est pas activé. Allez dans les paramètres "Sans fil et réseaux" pour l\'activer.</string>
+
+    <!--
+    TODO: TRANSLATE STRINGS
+    -->
+    <string name="home_screen_message_0">Welcome to Otentico</string>
+    <string name="home_screen_message_1">Scan NFC Tag</string>
+    <string name="home_screen_message_2">Place Phone close to NFC Tag</string>
+
+    <string name="scan_results_text">Scan result</string>
+    <string name="auth_screen_message_1">Authenticated by</string>
+    <string name="product_information_button">Product information</string>
+    <string name="brand_info_button">Brand\ninformation</string>
+
+
+    <string name="not_auth_screen_message_0">Scan Result</string>
+    <string name="not_auth_screen_message_1">Oops...</string>
+    <string name="not_auth_screen_message_2">This product cannot\nbe authenticated</string>
+
+    <string name="not_auth_button_1">Report\nUnauthentic</string>
+    <string name="not_auth_button_2">Request Future\nAuthentication</string>
+
+    <string name="product_information_screen_message_1">Product information</string>
+
+    <string name="footer_message">Powered by <b>Otentico</b></string>
+
 </resources>

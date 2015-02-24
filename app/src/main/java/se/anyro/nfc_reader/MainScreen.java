@@ -38,6 +38,7 @@ import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.otentico.android.model.Product;
 import com.otentico.android.nfc.NFCAuthInfoTask;
@@ -96,7 +97,6 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 			boolean encodeInUtf8) {
 		byte[] langBytes = locale.getLanguage().getBytes(
 				Charset.forName("US-ASCII"));
-
 		Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset
 				.forName("UTF-16");
 		byte[] textBytes = text.getBytes(utfEncoding);
@@ -195,7 +195,8 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 		try {
 			Address address = Utils.getAddress(this);
 			String identity = Utils.getIdentity(this);
-			if (address == null) {
+            Toast.makeText(this,"addr:"+address+" idt: "+identity,Toast.LENGTH_LONG).show();
+            if (address == null) {
 				auth_task.execute(nfc_uid, "Not Found", "Not Found",identity);
 				return;
 			}

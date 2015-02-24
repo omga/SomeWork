@@ -10,6 +10,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -26,7 +27,10 @@ public class Utils {
 	public static Address getAddress(Activity activity) throws IOException {
 		LocationManager locationManager = (LocationManager) activity
 				.getSystemService(Context.LOCATION_SERVICE);
-		Location lastKnownLocation = getLastKnownLocation(locationManager);
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        Location lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
+		//Location lastKnownLocation = getLastKnownLocation(locationManager);
 		if(lastKnownLocation ==null){
 			return null;
 		}

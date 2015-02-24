@@ -15,19 +15,24 @@
      limitations under the License.
 -->
 
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/list"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/background"
 	android:orientation="vertical" >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<View
-		android:layout_width="1dp"
-		android:layout_height="20dp" >
-	</View>
 
 	<LinearLayout
+        android:layout_marginBottom="20dp"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal" 
@@ -35,16 +40,14 @@
 	
 		
 		<LinearLayout
+
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical" >
 			
-			<View
-				android:layout_width="1dp"
-				android:layout_height="10dp" >
-			</View>			
-				
+
 			<TextView
+                android:padding="20dp"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
@@ -55,22 +58,14 @@
 				android:fontFamily="sans-serif" />
 			
 				/>		
-					 
-			<View
-				android:layout_width="1dp"
-				android:layout_height="10dp" >
-			</View>					
-	
+
 		</LinearLayout>
 			
 	</LinearLayout>
-	
-	<View
-		android:layout_width="1dp"
-		android:layout_height="15dp" >
-	</View>
+
 		
 	<LinearLayout
+
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="@color/title_background"
@@ -283,8 +278,8 @@
 	
 	<ImageView
 		android:id="@+id/product_image"
-		android:layout_width="600px"
-		android:layout_height="600px"
+		android:layout_width="100dp"
+		android:layout_height="100dp"
 		android:layout_gravity="center"
 		android:scaleType="fitXY"
 		android:src="@drawable/jcb_logo" />
@@ -350,5 +345,8 @@
 		</LinearLayout>
 			
 	</LinearLayout>
+
+</LinearLayout>
+</ScrollView>
 
 </LinearLayout>
