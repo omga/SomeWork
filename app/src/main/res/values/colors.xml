@@ -1,0 +1,8 @@
+<resources>
+	<color name="title_background">#545454</color>
+	<color name="footer_background">#545454</color>
+	<color name="background">#333333</color>
+	<color name="text">#FCFCFC</color>
+	<color name="button_background">#282c2f</color>
+	
+</resources>
