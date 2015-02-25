@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -23,13 +24,13 @@ public class AuthenticatedScreen extends ActionBarActivity {
 	Button btnBrandInformation;
 	String company_name;
 	String company_logo_url;
+    private Toolbar mToolbar;
 
 	ImageView imgCompanyLogo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		Intent intent = getIntent();
 		company_name = intent.getExtras().getString(MainScreen.COMPANY_NAME);
 		company_logo_url = intent.getExtras().getString(
@@ -37,7 +38,8 @@ public class AuthenticatedScreen extends ActionBarActivity {
 
 
 		setContentView(R.layout.authenticated_screen);
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 		btnProductInformation = (Button) findViewById(R.id.btnProductInformation);
 		imgCompanyLogo = (ImageView) findViewById(R.id.company_logo);
 

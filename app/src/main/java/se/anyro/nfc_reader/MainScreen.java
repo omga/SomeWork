@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
@@ -44,20 +45,23 @@ import com.otentico.android.model.Product;
 import com.otentico.android.nfc.NFCAuthInfoTask;
 import com.otentico.android.nfc.OnTaskCompleted;
 import com.otentico.android.nfc.Utils;
-
+/*
+What is done so far:
+- fitted 3 screen pages to small sizes
+- gps and identity: right now I'm sending to the backend city, country, and user's google account name. Is this what you want?
+ */
 public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
 	public static final String NFC_UID = "NFC_UID";
 	public static final String COMPANY_NAME = "COMPANY_NAME";
 	public static final String COMPANY_IMAGE_URL = "COMPANY_IMAGE_URL";
-
 	public static final String PRODUCT_IMAGE = "PRODUCT_IMAGE";
-	private NfcAdapter mAdapter;
+
+    private NfcAdapter mAdapter;
 	private PendingIntent mPendingIntent;
 	private NdefMessage mNdefPushMessage;
-
 	private AlertDialog mDialog;
-
+    private Toolbar mToolbar;
 	private boolean debug = true;
 
 	@Override
@@ -66,6 +70,8 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
 
 		setContentView(R.layout.main_screen);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 		if (debug) {
 			resolveIntentMock(getIntent());
 		} else {
@@ -77,7 +83,7 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
 		if (!debug && mAdapter == null) {
 			showMessage(R.string.error, R.string.no_nfc);
-			finish();
+//			finish();
 			return;
 		}
 
@@ -170,16 +176,18 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 			String nfc_uid = Utils.dumpTagData(tag).replace(' ', ':');
 
 			NFCAuthInfoTask auth_task = new NFCAuthInfoTask(this);
+
 			try {
 				Address address = Utils.getAddress(this);
+                String identity = Utils.getIdentity(this);
 				if (address == null) {
-					auth_task.execute(nfc_uid, "Not Found", "Not Found");
+					auth_task.execute(nfc_uid, "Not Found", "Not Found", identity);
 					return;
 				}
 				auth_task.execute(nfc_uid, address.getCountryName(),
-						address.getLocality());
+						address.getLocality(), identity);
 			} catch (IOException e) {
-				auth_task.execute(nfc_uid, "Not Found", "Not Found");
+				auth_task.execute(nfc_uid, "Not Found", "Not Found", "Not Found");
 			}
 
 		}

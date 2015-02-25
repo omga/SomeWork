@@ -18,20 +18,23 @@ package se.anyro.nfc_reader;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Window;
 
 
-public class NotAuthenticatedScreen extends Activity {
+public class NotAuthenticatedScreen extends ActionBarActivity {
 
-
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
+
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.not_authenticated_screen);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         
       
       

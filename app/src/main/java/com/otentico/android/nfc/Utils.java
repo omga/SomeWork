@@ -28,17 +28,22 @@ public class Utils {
 		LocationManager locationManager = (LocationManager) activity
 				.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, false);
+        //Log.e("addr",""+criteria);
+        String bestProvider = locationManager.getBestProvider(criteria, true);
+        //Log.e("addr",""+bestProvider);
         Location lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
+        //Log.e("addr",""+lastKnownLocation + "lat: " + lastKnownLocation.getLatitude()+ "lon: " + lastKnownLocation.getLongitude());
 		//Location lastKnownLocation = getLastKnownLocation(locationManager);
 		if(lastKnownLocation ==null){
 			return null;
 		}
-		Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+		Geocoder geocoder = new Geocoder(activity, Locale.US);
+        Log.e("addr","locale: " + Locale.getDefault());
 		List<Address> address = geocoder.getFromLocation(
-				lastKnownLocation.getLongitude(),
-				lastKnownLocation.getLatitude(), 1);
+				lastKnownLocation.getLatitude(),
+				lastKnownLocation.getLongitude(), 1);
 		if (address != null && !address.isEmpty()) {
+            Log.e("addr","locale: " + address.get(0));
 			return address.get(0);
 		}
 		return null;

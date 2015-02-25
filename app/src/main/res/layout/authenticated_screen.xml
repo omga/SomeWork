@@ -19,9 +19,12 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
+        android:layout_below="@id/toolbar"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
