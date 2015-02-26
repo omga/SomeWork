@@ -106,9 +106,8 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 
 			json = new JSONObject(json_string);
 
-			Log.d("NetUtils.NFCAuthInfoTask", json_string);
-			Log.d("NetUtils.NFCAuthInfoTask", json.length() > 0 ? "True"
-					: "False");
+			Log.d("NFCAuthInfoTask", json_string);
+			Log.d("NFCAuthInfoTask", json.length() > 0 ? "True": "False");
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -124,7 +123,7 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 	@Override
 	protected void onPostExecute(String result) {
 
-		Log.d("NetUtils.NFCAuthInfoTask", "Result: " + result);
+		Log.d("NFCAuthInfoTask", "Result: " + result);
 
 		listener.onTaskCompleted(result);
 		// startActivity(new Intent(mContext,MainTabsActivity.class));

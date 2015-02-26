@@ -30,9 +30,10 @@
         android:background="@drawable/background_ot"
         android:orientation="vertical">
 
+
         <ImageView
-            android:layout_width="260dp"
-            android:layout_height="260dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
@@ -41,7 +42,7 @@
 
         <se.anyro.nfc_reader.font.RobotoTextView
             android:layout_gravity="center"
-            android:textSize="30sp"
+            android:textSize="40sp"
             style="@style/TextViewAppearance.Title1"
             android:textColor="@color/text"
             android:alpha="0.87"
@@ -50,7 +51,7 @@
         <se.anyro.nfc_reader.font.RobotoTextView
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="@color/text"
             android:alpha="0.87"
             style="@style/TextViewAppearance.Title1"
@@ -73,7 +74,7 @@
             android:layout_gravity="center"
             android:text="@string/footer_message_first_word"
             style="@style/TextViewAppearance.Caption2"
-            android:textSize="12sp"
+            android:textSize="14sp"
             />
         <se.anyro.nfc_reader.font.RobotoTextView
             android:padding="1dp"
@@ -81,7 +82,7 @@
             android:text="@string/footer_message_second_word"
             style="@style/TextViewAppearance.Caption3"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="16sp"
             />
     </LinearLayout>
 

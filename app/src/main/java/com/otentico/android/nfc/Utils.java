@@ -32,21 +32,21 @@ public class Utils {
         String bestProvider = locationManager.getBestProvider(criteria, true);
 
         Location lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
-        Log.e("addr","lst loc"+lastKnownLocation);
+        Log.d("addr","lst loc"+lastKnownLocation);
                 //Location lastKnownLocation = getLastKnownLocation(locationManager);
 		if(lastKnownLocation ==null){
 			return null;
 		}
-        Log.e("addr",""+criteria);
-        Log.e("addr",""+bestProvider);
-        Log.e("addr",""+lastKnownLocation + "lat: " + lastKnownLocation.getLatitude()+ "lon: " + lastKnownLocation.getLongitude());
+        Log.d("addr",""+criteria);
+        Log.d("addr",""+bestProvider);
+        Log.d("addr",""+lastKnownLocation + "lat: " + lastKnownLocation.getLatitude()+ "lon: " + lastKnownLocation.getLongitude());
 		Geocoder geocoder = new Geocoder(activity, Locale.US);
-        Log.e("addr","locale: " + Locale.getDefault());
+        Log.d("addr","locale: " + Locale.getDefault());
 		List<Address> address = geocoder.getFromLocation(
 				lastKnownLocation.getLatitude(),
 				lastKnownLocation.getLongitude(), 1);
 		if (address != null && !address.isEmpty()) {
-            Log.e("addr","locale: " + address.get(0));
+            Log.d("addr","locale: " + address.get(0));
 			return address.get(0);
 		}
 		return null;

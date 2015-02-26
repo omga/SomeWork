@@ -41,6 +41,8 @@
 	<string name="product_information_screen_message_1">Product information</string>
 	
 	<string name="footer_message">Powered by <b>Otentico</b></string>
+	<string name="footer_message_first_word">Powered by </string>
+	<string name="footer_message_second_word">Otentico</string>
 
     <string name="drawer_icon_linked_in">&#xe80e;</string>
     <string name="drawer_icon_blog">&#xe81e;</string>
@@ -56,5 +58,9 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="download">download</string>
     <string name="done">ddone</string>
+    <string name="scan_history_text">Scan History</string>
+    <string name="term_of_use_text">Terms Of Use</string>
+    <string name="version_text">Version: 1.0.1</string>
+    <string name="contact_otentico_text">otenti.co</string>
 
 </resources>

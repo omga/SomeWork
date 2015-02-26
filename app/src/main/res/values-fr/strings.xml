@@ -47,4 +47,8 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="scan_history_text">Scan History</string>
+    <string name="term_of_use_text">Terms Of Use</string>
+    <string name="version_text">Version: 1.0.1</string>
+    <string name="contact_otentico_text">otenti.co</string>
 </resources>

@@ -89,6 +89,7 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 	private NdefMessage mNdefPushMessage;
 	private AlertDialog mDialog;
     private Toolbar mToolbar;
+    // Set this value to TRUE if you want to mock the NFC tag info for tests
 	private boolean debug = true;
 
 	@Override
@@ -290,23 +291,19 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
         mDrawerItems.add(
                 new DrawerItem(
                         R.string.drawer_icon_linked_in,
-                        R.string.drawer_title_linked_in,
+                        R.string.scan_history_text,
                         DrawerItem.DRAWER_ITEM_TAG_LINKED_IN));
         mDrawerItems.add(
                 new DrawerItem(
                         R.string.drawer_icon_blog,
-                        R.string.drawer_title_blog,
+                        R.string.term_of_use_text,
                         DrawerItem.DRAWER_ITEM_TAG_BLOG));
         mDrawerItems.add(
                 new DrawerItem(
                         R.string.drawer_icon_git_hub,
-                        R.string.drawer_title_git_hub,
+                        R.string.version_text,
                         DrawerItem.DRAWER_ITEM_TAG_GIT_HUB));
-        mDrawerItems.add(
-                new DrawerItem(
-                        R.string.drawer_icon_instagram,
-                        R.string.drawer_title_instagram,
-                        DrawerItem.DRAWER_ITEM_TAG_INSTAGRAM));
+
     }
 
     private void setAdapter() {
@@ -316,6 +313,7 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
                     "http://pengaja.com/uiapptemplate/avatars/0.jpg",
                     "dev@csform.com");
 
+
         BaseAdapter adapter = new DrawerAdapter(this, mDrawerItems, true);
 
         mDrawerList.addHeaderView(headerView);//Add header before adapter (for pre-KitKat)
@@ -324,9 +322,9 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
     private View prepareHeaderView(int layoutRes, String url, String email) {
         View headerView = getLayoutInflater().inflate(layoutRes, mDrawerList, false);
-        ImageView iv = (ImageView) headerView.findViewById(R.id.image);
-        TextView tv = (TextView) headerView.findViewById(R.id.email);
-        tv.setText(email);
+        //ImageView iv = (ImageView) headerView.findViewById(R.id.image);
+        //TextView tv = (TextView) headerView.findViewById(R.id.email);
+        //tv.setText(email);
         return headerView;
     }
 

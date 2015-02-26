@@ -108,7 +108,8 @@ public class ProductInformation extends Activity {
 				R.drawable.no_image));
 
 		ImageLoadTask imgLoadTask = new ImageLoadTask(product_image);
-		imgLoadTask.execute(Utils.HOST + "uploads/" + p.get("image").value);
+		//imgLoadTask.execute(Utils.HOST + "uploads/" + p.get("image").value);
+        imgLoadTask.execute(p.get("image").value);
 
 	}
 
