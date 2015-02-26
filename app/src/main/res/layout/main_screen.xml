@@ -22,6 +22,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
+
     <LinearLayout
         android:id="@+id/list"
         android:layout_below="@id/toolbar"
@@ -92,4 +93,22 @@
             android:src="@drawable/powered_by_otentico"/>
 
     </LinearLayout>
+    <android.support.v4.widget.DrawerLayout
+        android:layout_below="@id/toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:layout_width="@dimen/drawer_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            layout="@layout/list_view" />
+    </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

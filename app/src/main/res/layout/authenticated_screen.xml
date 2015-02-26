@@ -52,14 +52,20 @@
             android:src="@drawable/positive_icon_500" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="@string/auth_screen_message_1"-->
+            <!--android:textColor="@color/text"-->
+            <!--android:textSize="30sp"-->
+            <!--android:textStyle="bold" />-->
+
+        <se.anyro.nfc_reader.font.RobotoTextView
             android:layout_gravity="center"
-            android:text="@string/auth_screen_message_1"
-            android:textColor="@color/text"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            style="@style/TextViewAppearance.Display1"
+            android:text="@string/auth_screen_message_1" />
 
         <ImageView
             android:id="@+id/company_logo"
@@ -85,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:fontFamily="sans-serif"
+                style="@style/ButtonStyle"
                 android:text="@string/product_information_button" />
 
             <Button
@@ -94,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:fontFamily="sans-serif"
+                style="@style/ButtonStyle.RaisedEmpty"
                 android:text="@string/brand_info_button" />
 
         </LinearLayout>

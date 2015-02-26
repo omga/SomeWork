@@ -35,4 +35,16 @@
 
     <string name="footer_message">Powered by <b>Otentico</b></string>
 
+    <string name="drawer_icon_linked_in">&#xe80e;</string>
+    <string name="drawer_icon_blog">&#xe81e;</string>
+    <string name="drawer_icon_git_hub">&#xe808;</string>
+    <string name="drawer_icon_instagram">&#xe80c;</string>
+
+    <string name="drawer_title_linked_in">LinkedIn</string>
+    <string name="drawer_title_blog">Blog</string>
+    <string name="drawer_title_git_hub">GitHub</string>
+    <string name="drawer_title_instagram">Instagram</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
