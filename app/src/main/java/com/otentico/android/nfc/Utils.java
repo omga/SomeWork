@@ -18,6 +18,7 @@ import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.util.Log;
 
 public class Utils {
@@ -88,6 +89,11 @@ public class Utils {
 	    }
 	    return null;
 	}
+
+    public static String getAndroidID(Context context){
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+    }
 	
 	public static String dumpTagData(Parcelable p) {
 		StringBuilder sb = new StringBuilder();

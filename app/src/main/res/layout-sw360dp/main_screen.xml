@@ -21,19 +21,23 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-
+    <se.anyro.nfc_reader.view.kbv.KenBurnsView
+        android:layout_below="@id/toolbar"
+        android:id="@+id/ken_burns_images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <LinearLayout
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:background="@drawable/background_ot"
         android:orientation="vertical">
 
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:id="@+id/nfc_scan_img"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
@@ -41,17 +45,19 @@
 
 
         <se.anyro.nfc_reader.font.RobotoTextView
+            android:id="@+id/welcome_text_1"
             android:layout_gravity="center"
-            android:textSize="36sp"
+            android:textSize="32sp"
             style="@style/TextViewAppearance.Title1"
             android:textColor="@color/text"
             android:alpha="0.87"
             android:text="@string/home_screen_message_1"/>
 
         <se.anyro.nfc_reader.font.RobotoTextView
+            android:id="@+id/welcome_text_2"
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/text"
             android:alpha="0.87"
             style="@style/TextViewAppearance.Title1"

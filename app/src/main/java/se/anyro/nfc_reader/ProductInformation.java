@@ -30,6 +30,8 @@ import com.otentico.android.model.Property;
 import com.otentico.android.nfc.ImageLoadTask;
 import com.otentico.android.nfc.Utils;
 
+import se.anyro.nfc_reader.view.ProgressWheel;
+
 public class ProductInformation extends Activity {
 
 	TextView name_1;
@@ -50,6 +52,7 @@ public class ProductInformation extends Activity {
 
 	String company_name;
 	String company_logo_url;
+    ProgressWheel pb;
 
 
 	@Override
@@ -66,7 +69,7 @@ public class ProductInformation extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.product_information);
-
+        pb = (ProgressWheel) findViewById(R.id.progress_bar);
 		name_1 = (TextView) findViewById(R.id.textName1);
 		name_2 = (TextView) findViewById(R.id.textName2);
 		name_3 = (TextView) findViewById(R.id.textName3);
@@ -104,10 +107,11 @@ public class ProductInformation extends Activity {
 
 		product_image = (ImageView) findViewById(R.id.product_image);
 
-		product_image.setImageDrawable(getResources().getDrawable(
-				R.drawable.no_image));
+        pb.spin();
+//		product_image.setImageDrawable(getResources().getDrawable(
+//				R.drawable.no_image));
 
-		ImageLoadTask imgLoadTask = new ImageLoadTask(product_image);
+		ImageLoadTask imgLoadTask = new ImageLoadTask(product_image, pb);
 		//imgLoadTask.execute(Utils.HOST + "uploads/" + p.get("image").value);
         imgLoadTask.execute(p.get("image").value);
 

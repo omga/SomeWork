@@ -10,12 +10,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+
+import se.anyro.nfc_reader.view.ProgressWheel;
 
 public class ImageLoadTask extends AsyncTask<String, Void, Bitmap> {
 	private Bitmap bitmap;
 	ImageView iv;
-
+    ProgressWheel pb;
+	public ImageLoadTask(ImageView i, ProgressWheel pb) {
+		this.iv = i;
+        this.pb = pb;
+	}
 	public ImageLoadTask(ImageView i) {
 		this.iv = i;
 	}
@@ -63,8 +70,10 @@ public class ImageLoadTask extends AsyncTask<String, Void, Bitmap> {
 	protected void onPostExecute(Bitmap result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-
 		iv.setImageBitmap(result);
+        pb.stopSpinning();
+        pb.setVisibility(View.GONE);
+        iv.setVisibility(View.VISIBLE);
 	}
 
 }

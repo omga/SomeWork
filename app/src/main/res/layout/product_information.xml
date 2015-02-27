@@ -274,16 +274,23 @@
 	<View
 		android:layout_width="1dp"
 		android:layout_height="20dp" >
-	</View>	
-	
+	</View>
+
+    <se.anyro.nfc_reader.view.ProgressWheel
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBarStyle.Main"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+         />
 	<ImageView
 		android:id="@+id/product_image"
 		android:layout_width="100dp"
 		android:layout_height="100dp"
+        android:visibility="gone"
 		android:layout_gravity="center"
 		android:scaleType="fitXY"
 		android:src="@drawable/jcb_logo" />
-	
 	
 	<View
 		android:layout_width="1dp"

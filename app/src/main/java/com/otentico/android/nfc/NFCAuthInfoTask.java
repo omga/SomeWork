@@ -31,7 +31,7 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 
 	}
 
-	public String POST(String uid, String country, String locality, String identity) {
+	public String POST(String uid, String country, String locality, String identity, String androidID) {
 		String url = Utils.HOST + "api/scans/";
 		InputStream inputStream = null;
 		String result = "";
@@ -52,6 +52,7 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 			obj.put("country", country);
 			obj.put("city", locality);
 			obj.put("deviceID", identity);
+			obj.put("android_id", androidID);
 
 			httpPost.setEntity(new StringEntity(obj.toString()));
 
@@ -102,7 +103,7 @@ public class NFCAuthInfoTask extends AsyncTask<String, Integer, String> {
 		JSONObject json;
 		String json_string = "";
 		try {
-			json_string = this.POST(args[0], args[1], args[2], args[3]);
+			json_string = this.POST(args[0], args[1], args[2], args[3], args[4]);
 
 			json = new JSONObject(json_string);
 

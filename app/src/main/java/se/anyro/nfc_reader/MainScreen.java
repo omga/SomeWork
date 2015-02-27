@@ -25,6 +25,7 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -61,11 +62,11 @@ import com.otentico.android.model.Product;
 import com.otentico.android.nfc.NFCAuthInfoTask;
 import com.otentico.android.nfc.OnTaskCompleted;
 import com.otentico.android.nfc.Utils;
-/*
-What is done so far:
-- fitted 3 screen pages to small sizes
-- gps and identity: right now I'm sending to the backend city, country, and user's google account name. Is this what you want?
- */
+
+import se.anyro.nfc_reader.font.RobotoTextView;
+import se.anyro.nfc_reader.view.kbv.KenBurnsView;
+
+
 public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
 	public static final String NFC_UID = "NFC_UID";
@@ -89,8 +90,9 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 	private NdefMessage mNdefPushMessage;
 	private AlertDialog mDialog;
     private Toolbar mToolbar;
+    private KenBurnsView mKenBurns;
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-	private boolean debug = true;
+	private boolean debug = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,13 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 		setContentView(R.layout.main_screen);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
+        mKenBurns = (KenBurnsView) findViewById(R.id.ken_burns_images);
+        RobotoTextView welcome1 = (RobotoTextView) findViewById(R.id.welcome_text_1);
+        RobotoTextView welcome2 = (RobotoTextView) findViewById(R.id.welcome_text_2);
+        ImageView nfcScanImg = (ImageView) findViewById(R.id.nfc_scan_img);
+        nfcScanImg.setAlpha(0.0f);
+        welcome1.setAlpha(0.0f);
+        welcome2.setAlpha(0.0f);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -109,6 +117,7 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         prepareNavigationDrawerItems();
         setAdapter();
+        mKenBurns.setImageResource(R.drawable.background_ot);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
@@ -127,7 +136,10 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
-            mDrawerLayout.openDrawer(mDrawerList);
+           // mDrawerLayout.openDrawer(mDrawerList);
+            animationAlpha(nfcScanImg, 1000);
+            animationAlpha(welcome1, 1700);
+            animationAlpha(welcome2, 1700);
         }
 
         if (debug) {
@@ -140,7 +152,7 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 		mAdapter = NfcAdapter.getDefaultAdapter(this);
 
 		if (!debug && mAdapter == null) {
-			showMessage(R.string.error, R.string.no_nfc);
+//			showMessage(R.string.error, R.string.no_nfc);
 //			finish();
 			return;
 		}
@@ -238,14 +250,14 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 			try {
 				Address address = Utils.getAddress(this);
                 String identity = Utils.getIdentity(this);
+                String androidID = Utils.getAndroidID(this);
 				if (address == null) {
-					auth_task.execute(nfc_uid, "Not Found", "Not Found", identity);
+					auth_task.execute(nfc_uid, "Not Found", "Not Found", identity, androidID);
 					return;
 				}
-				auth_task.execute(nfc_uid, address.getCountryName(),
-						address.getLocality(), identity);
+				auth_task.execute(nfc_uid, address.getCountryName(), address.getLocality(), identity, androidID);
 			} catch (IOException e) {
-				auth_task.execute(nfc_uid, "Not Found", "Not Found", "Not Found");
+				auth_task.execute(nfc_uid, "Not Found", "Not Found", "Not Found", "Not Found");
 			}
 
 		}
@@ -262,16 +274,16 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 		try {
 			Address address = Utils.getAddress(this);
 			String identity = Utils.getIdentity(this);
+            String androidID = Utils.getAndroidID(this);
             Toast.makeText(this,"addr:"+address+" idt: "+identity,Toast.LENGTH_LONG).show();
             if (address == null) {
-				auth_task.execute(nfc_uid, "Not Found", "Not Found",identity);
+				auth_task.execute(nfc_uid, "Not Found", "Not Found",identity, androidID);
 				return;
 			}
-			auth_task.execute(nfc_uid, address.getCountryName(),
-					address.getLocality(),identity);
+			auth_task.execute(nfc_uid, address.getCountryName(), address.getLocality(),identity, androidID);
 		} catch (IOException e) {
             Log.e("resolveIntentMock","addr exptn: " + e.getMessage());
-			auth_task.execute(nfc_uid, "Not Found", "Not Found","Not Disclosed");
+			auth_task.execute(nfc_uid, "Not Found", "Not Found","Not Found", "Not Found");
 		}
 
 	}
@@ -391,6 +403,13 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void animationAlpha(View v,int delay) {
+        ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(v, "alpha", 0.0F, 1.0F);
+        alphaAnimation.setStartDelay(delay);
+        alphaAnimation.setDuration(1000);
+        alphaAnimation.start();
     }
 
     @Override
