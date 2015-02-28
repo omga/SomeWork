@@ -51,6 +51,11 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <!--<activity android:name=".BaseFragmentActivity"-->
+            <!--android:label="Base Label"-->
+            <!--android:screenOrientation="portrait">-->
+
+        <!--</activity>-->
         
         <activity android:name=".AuthenticatedScreen" 
         	  	  android:label="@string/scan_results_text"

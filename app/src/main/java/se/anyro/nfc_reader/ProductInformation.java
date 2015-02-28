@@ -32,7 +32,8 @@ import com.otentico.android.nfc.Utils;
 
 import se.anyro.nfc_reader.view.ProgressWheel;
 
-public class ProductInformation extends Activity {
+
+public class ProductInformation extends BaseFragmentActivity {
 
 	TextView name_1;
 	TextView name_2;
@@ -54,9 +55,18 @@ public class ProductInformation extends Activity {
 	String company_logo_url;
     ProgressWheel pb;
 
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.product_information;
+    }
+
+    @Override
+    protected int getDrawerLayout() {
+        return R.id.drawer_layout;
+    }
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
@@ -65,10 +75,6 @@ public class ProductInformation extends Activity {
 		company_logo_url = intent.getExtras().getString(
 				MainScreen.COMPANY_IMAGE_URL);
 
-
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		setContentView(R.layout.product_information);
         pb = (ProgressWheel) findViewById(R.id.progress_bar);
 		name_1 = (TextView) findViewById(R.id.textName1);
 		name_2 = (TextView) findViewById(R.id.textName2);

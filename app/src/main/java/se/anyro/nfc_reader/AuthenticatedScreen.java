@@ -17,7 +17,7 @@ import com.otentico.android.nfc.ImageLoadTask;
  * An {@link Activity} which handles a broadcast of a new tag that the device
  * just discovered.
  */
-public class AuthenticatedScreen extends ActionBarActivity {
+public class AuthenticatedScreen extends BaseFragmentActivity {
 
 	public static final String NFC_UID = "NFC_UID";
 	Button btnProductInformation;
@@ -28,23 +28,30 @@ public class AuthenticatedScreen extends ActionBarActivity {
 
 	ImageView imgCompanyLogo;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.authenticated_screen;
+    }
+
+    @Override
+    protected int getDrawerLayout() {
+        return R.id.drawer_layout;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		company_name = intent.getExtras().getString(MainScreen.COMPANY_NAME);
 		company_logo_url = intent.getExtras().getString(
 				MainScreen.COMPANY_IMAGE_URL);
 
-
-		setContentView(R.layout.authenticated_screen);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+//
+//		setContentView(R.layout.authenticated_screen);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolbar);
 		btnProductInformation = (Button) findViewById(R.id.btnProductInformation);
 		imgCompanyLogo = (ImageView) findViewById(R.id.company_logo);
-
-		imgCompanyLogo.setImageDrawable(getResources().getDrawable(
-				R.drawable.logo));
 
 //		ImageLoadTask imgLoadTask = new ImageLoadTask(imgCompanyLogo);
 //		imgLoadTask.execute(company_logo_url);

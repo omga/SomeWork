@@ -41,27 +41,22 @@
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/nfc_scanning_phone" />
+            android:src="@drawable/nfc_scanning_phone_1" />
 
 
         <se.anyro.nfc_reader.font.RobotoTextView
             android:id="@+id/welcome_text_1"
             android:layout_gravity="center"
-            android:textSize="32sp"
-            style="@style/TextViewAppearance.Title1"
-            android:textColor="@color/text"
-            android:alpha="0.87"
+            style="@style/TextViewAppearance.Headline1"
             android:text="@string/home_screen_message_1"/>
 
         <se.anyro.nfc_reader.font.RobotoTextView
             android:id="@+id/welcome_text_2"
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
-            android:textSize="16sp"
-            android:textColor="@color/text"
-            android:alpha="0.87"
             style="@style/TextViewAppearance.Title1"
             />
+
 
 
     </LinearLayout>

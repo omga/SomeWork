@@ -84,15 +84,18 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private Toolbar mToolbar;
+
+    private KenBurnsView mKenBurns;
 
     private NfcAdapter mAdapter;
 	private PendingIntent mPendingIntent;
 	private NdefMessage mNdefPushMessage;
 	private AlertDialog mDialog;
-    private Toolbar mToolbar;
-    private KenBurnsView mKenBurns;
+
+
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-	private boolean debug = false;
+	private boolean debug = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +122,6 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
         setAdapter();
         mKenBurns.setImageResource(R.drawable.background_ot);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.drawer_open,
                 R.string.drawer_close) {
@@ -134,7 +136,6 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
         if (savedInstanceState == null) {
            // mDrawerLayout.openDrawer(mDrawerList);
             animationAlpha(nfcScanImg, 1000);
@@ -380,6 +381,8 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
         mDrawerList.setItemChecked(position, true);
         setTitle(mDrawerItems.get(position - 1).getTitle());
         mDrawerLayout.closeDrawer(mDrawerList);
+//        Intent intent = new Intent(MainScreen.this,BaseFragmentActivity.class);
+//        startActivity(intent);
     }
 
     @Override

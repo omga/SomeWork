@@ -23,22 +23,30 @@ import android.support.v7.widget.Toolbar;
 import android.view.Window;
 
 
-public class NotAuthenticatedScreen extends ActionBarActivity {
+public class NotAuthenticatedScreen extends BaseFragmentActivity {
 
     private Toolbar mToolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.not_authenticated_screen);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        
-      
-      
+    protected int getActivityLayout() {
+        return R.layout.not_authenticated_screen;
     }
 
- 
+    @Override
+    protected int getDrawerLayout() {
+        return R.id.drawer_layout;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        setContentView(R.layout.not_authenticated_screen);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolbar);
+
+
+    }
+
+
 }
