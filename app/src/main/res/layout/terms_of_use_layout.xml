@@ -24,67 +24,55 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline3"
+                    style="@style/TextViewAppearance.Headline1"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:text="@string/title_huge" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline1"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Title1"
                     android:text="@string/title_introduction" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Body2"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Body1"
                     android:text="@string/text_introduction" />
 
 
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline1"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Title1"
                     android:text="@string/title_intellectual" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Body2"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Body1"
                     android:text="@string/text_intellectual" />
 
 
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline1"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Title1"
                     android:text="@string/title_prohibited_use" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Body2"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Body1"
                     android:text="@string/text_prohibited_use" />
 
 
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline1"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Title1"
                     android:text="@string/title_availability" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Body2"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Body1"
                     android:text="@string/text_availability" />
 
 
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline1"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Title1"
                     android:text="@string/title_limitation" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Body2"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Body1"
                     android:text="@string/text_limitation" />
 
 
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Headline1"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Title1"
                     android:text="@string/title_otentico_ltd" />
                 <se.anyro.nfc_reader.font.RobotoTextView
-                    style="@style/TextViewAppearance.Body2"
-                    android:layout_gravity="center"
+                    style="@style/TextViewAppearance.Body1"
                     android:text="@string/text_otentico_ltd" />
 
 

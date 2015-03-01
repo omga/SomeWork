@@ -31,21 +31,24 @@
 
 
         <ImageView
-            android:layout_width="240dp"
-            android:layout_height="240dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:src="@drawable/negative_icon_500" />
 
 
         <se.anyro.nfc_reader.font.RobotoTextView
-            style="@style/TextViewAppearance.Display3"
+            android:layout_marginTop="30dp"
+            android:padding="0dp"
+            style="@style/TextViewAppearance.Headline1"
             android:layout_gravity="center"
             android:text="@string/not_auth_screen_message_1" />
 
 
         <se.anyro.nfc_reader.font.RobotoTextView
-            style="@style/TextViewAppearance.Title1"
+            android:padding="0dp"
+            style="@style/TextViewAppearance.Headline1"
             android:layout_gravity="center_horizontal"
             android:text="@string/not_auth_screen_message_2"
 

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,11 +35,18 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
     private CharSequence mTitle;
     private Toolbar mToolbar;
 
+    ImageView cubeHomeIcon;
+
     //return the layout of activity that extends this class
     protected abstract int getActivityLayout();
     //return the drawer layout id of activity that extends this class (make sure your activity layout have android.support.v4.widget.DrawerLayout)
     protected abstract int getDrawerLayout();
 
+    protected void setToolbarVisibility(int alpha){
+        if(mToolbar!=null){
+            mToolbar.setBackgroundColor(0x00ffffff);
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +75,17 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
                 invalidateOptionsMenu();
             }
         };
+        cubeHomeIcon = (ImageView) findViewById(R.id.image_app_cube);
+        cubeHomeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!(BaseFragmentActivity.this instanceof MainScreen)) {
+                    Intent i = new Intent(BaseFragmentActivity.this, MainScreen.class);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        });
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 

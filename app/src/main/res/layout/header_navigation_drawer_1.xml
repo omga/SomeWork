@@ -11,7 +11,7 @@
         android:src="@drawable/background_ot" />
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_app_cube"
         android:src="@drawable/cubeicon"
         android:layout_width="64dp"
         android:layout_height="64dp"

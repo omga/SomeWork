@@ -46,7 +46,26 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/main_color_grey_400</item>
     </style>
-    
+
+
+    <!-- same for bigger screens -->
+    <style name="TextViewAppearance.Display1_360" parent="@style/TextViewAppearance">
+        <item name="typeface">robotoRegular</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
+    </style>
+
+    <style name="TextViewAppearance.Headline1_360" parent="@style/TextViewAppearance">
+        <item name="typeface">robotoRegular</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
+    </style>
+
+    <style name="TextViewAppearance.Title1_360" parent="@style/TextViewAppearance">
+        <item name="typeface">robotoMedium</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
+    </style>
 	<!-- Typography style 2 -->
     
 	<style name="TextViewAppearance.Display2" parent="@style/TextViewAppearance">

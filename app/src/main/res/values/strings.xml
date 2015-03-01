@@ -33,7 +33,7 @@
 	
 	<string name="not_auth_screen_message_0">Scan Result</string>
 	<string name="not_auth_screen_message_1">Oops...</string>
-	<string name="not_auth_screen_message_2">This product can’t\nbe authenticated</string>
+	<string name="not_auth_screen_message_2">This product can’t\n  be authenticated</string>
 
 	<string name="not_auth_button_1">Report\nUnauthentic</string>
 	<string name="not_auth_button_2">Request Future\nAuthentication</string>

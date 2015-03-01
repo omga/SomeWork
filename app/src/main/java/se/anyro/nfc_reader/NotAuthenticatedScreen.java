@@ -22,6 +22,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
 
+import com.otentico.android.nfc.Utils;
+
 
 public class NotAuthenticatedScreen extends BaseFragmentActivity {
 
@@ -44,7 +46,7 @@ public class NotAuthenticatedScreen extends BaseFragmentActivity {
 //        setContentView(R.layout.not_authenticated_screen);
 //        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(mToolbar);
-
+        Utils.playSound(this, R.raw.error_sound);
 
     }
 

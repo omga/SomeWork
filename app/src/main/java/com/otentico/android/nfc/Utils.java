@@ -1,6 +1,9 @@
 package com.otentico.android.nfc;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -9,21 +12,113 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 
+import se.anyro.nfc_reader.R;
+
 public class Utils {
 	
 	public static final String HOST = "http://db.avaliatech.com/";
+
+
+    static MediaPlayer getMediaPlayer(Context context, int soundResId){
+
+        MediaPlayer mediaplayer = new MediaPlayer();
+
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+            return mediaplayer;
+        }
+
+        try {
+            Class<?> cMediaTimeProvider = Class.forName( "android.media.MediaTimeProvider" );
+            Class<?> cSubtitleController = Class.forName( "android.media.SubtitleController" );
+            Class<?> iSubtitleControllerAnchor = Class.forName( "android.media.SubtitleController$Anchor" );
+            Class<?> iSubtitleControllerListener = Class.forName( "android.media.SubtitleController$Listener" );
+
+            Constructor constructor = cSubtitleController.getConstructor(new Class[]{Context.class, cMediaTimeProvider, iSubtitleControllerListener});
+
+            Object subtitleInstance = constructor.newInstance(context, null, null);
+
+            Field f = cSubtitleController.getDeclaredField("mHandler");
+
+            f.setAccessible(true);
+            try {
+                f.set(subtitleInstance, new Handler());
+            }
+            catch (IllegalAccessException e) {return mediaplayer;}
+            finally {
+                f.setAccessible(false);
+            }
+
+            Method setsubtitleanchor = mediaplayer.getClass().getMethod("setSubtitleAnchor", cSubtitleController, iSubtitleControllerAnchor);
+
+            setsubtitleanchor.invoke(mediaplayer, subtitleInstance, null);
+            //Log.e("", "subtitle is setted :p");
+        } catch (Exception e) {}
+
+        return mediaplayer;
+    }
+
+    public static void playSound(Context context, int soundResId) {
+
+        MediaPlayer mp;
+       // mp = MediaPlayer.create(context, soundResId);
+       // mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mp = getMediaPlayer(context,soundResId);
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+                mp.reset();
+                mp.release();
+                mp=null;
+            }
+
+        });
+        AssetFileDescriptor afd = context.getResources().openRawResourceFd(soundResId);
+
+        try
+        {
+            mp.reset();
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
+            mp.prepareAsync();
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
+
+            afd.close();
+        }
+        catch (IllegalArgumentException e)
+        {
+            Log.e("playSound", "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+        catch (IllegalStateException e)
+        {
+            Log.e("playSound", "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 	public static Address getAddress(Activity activity) throws IOException {
 		LocationManager locationManager = (LocationManager) activity

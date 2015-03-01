@@ -88,7 +88,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 
 
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-	private boolean debug = false;
+	private boolean debug = true;
 
     @Override
     protected int getActivityLayout() {
@@ -116,7 +116,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
         animationAlpha(welcome1,1000);
         animationAlpha(welcome2,1500);
 
-
+       // setToolbarVisibility(0);
         if (debug) {
 			resolveIntentMock(getIntent());
 		} else {

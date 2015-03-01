@@ -94,22 +94,22 @@ public class ProductInformation extends BaseFragmentActivity {
 		Map<String, Property> p = Product.getInstance().getProps();
 		
 
-		name_1.setText(p.get("sku").label);
+		name_1.setText(p.get("sku").label+":");
 		value_1.setText(p.get("sku").value);
 
-		name_2.setText(p.get("desc").label);
+		name_2.setText(p.get("desc").label+":");
 		value_2.setText(p.get("desc").value);
 
-		name_3.setText(p.get("producer").label);
+		name_3.setText(p.get("producer").label+":");
 		value_3.setText(p.get("producer").value);
 
-		name_4.setText(p.get("size").label);
+		name_4.setText(p.get("size").label+":");
 		value_4.setText(p.get("size").value);
 
-		name_5.setText(p.get("color").label);
+		name_5.setText(p.get("color").label+":");
 		value_5.setText(p.get("color").value);
 
-		name_6.setText(p.get("homologation").label);
+		name_6.setText(p.get("homologation").label+":");
 		value_6.setText(p.get("homologation").value);
 
 		product_image = (StretchingImageView) findViewById(R.id.product_image);

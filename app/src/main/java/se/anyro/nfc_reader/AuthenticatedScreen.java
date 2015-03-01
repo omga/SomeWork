@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.otentico.android.nfc.ImageLoadTask;
+import com.otentico.android.nfc.Utils;
 
 /**
  * An {@link Activity} which handles a broadcast of a new tag that the device
@@ -71,6 +72,7 @@ public class AuthenticatedScreen extends BaseFragmentActivity {
 
 			}
 		});
+        Utils.playSound(this,R.raw.success_sound);
 
 	}
 

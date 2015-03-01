@@ -35,18 +35,19 @@
 
         <ImageView
             android:id="@+id/nfc_scan_img"
-            android:layout_width="260dp"
-            android:layout_height="260dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
             android:src="@drawable/nfc_scanning_phone_1" />
 
 
         <se.anyro.nfc_reader.font.RobotoTextView
+            android:layout_marginTop="20dp"
             android:id="@+id/welcome_text_1"
             android:layout_gravity="center"
-            style="@style/TextViewAppearance.Headline1"
+            style="@style/TextViewAppearance.Headline3"
             android:text="@string/home_screen_message_1"/>
 
         <se.anyro.nfc_reader.font.RobotoTextView
