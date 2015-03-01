@@ -265,7 +265,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 />
-            <ImageView
+            <se.anyro.nfc_reader.view.StretchingImageView
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

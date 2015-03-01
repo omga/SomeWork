@@ -31,6 +31,7 @@ import com.otentico.android.nfc.ImageLoadTask;
 import com.otentico.android.nfc.Utils;
 
 import se.anyro.nfc_reader.view.ProgressWheel;
+import se.anyro.nfc_reader.view.StretchingImageView;
 
 
 public class ProductInformation extends BaseFragmentActivity {
@@ -49,7 +50,7 @@ public class ProductInformation extends BaseFragmentActivity {
 	TextView value_5;
 	TextView value_6;
 
-	ImageView product_image;
+    StretchingImageView product_image;
 
 	String company_name;
 	String company_logo_url;
@@ -111,7 +112,7 @@ public class ProductInformation extends BaseFragmentActivity {
 		name_6.setText(p.get("homologation").label);
 		value_6.setText(p.get("homologation").value);
 
-		product_image = (ImageView) findViewById(R.id.product_image);
+		product_image = (StretchingImageView) findViewById(R.id.product_image);
 
         pb.spin();
 //		product_image.setImageDrawable(getResources().getDrawable(

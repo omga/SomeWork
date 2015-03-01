@@ -67,7 +67,7 @@ import se.anyro.nfc_reader.font.RobotoTextView;
 import se.anyro.nfc_reader.view.kbv.KenBurnsView;
 
 
-public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
+public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted {
 
 	public static final String NFC_UID = "NFC_UID";
 	public static final String COMPANY_NAME = "COMPANY_NAME";
@@ -77,14 +77,7 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
     public static final String LEFT_MENU_OPTION_1 = "Left Menu Option 1";
     public static final String LEFT_MENU_OPTION_2 = "Left Menu Option 2";
 
-    private ListView mDrawerList;
-    private List<DrawerItem> mDrawerItems;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
 
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private Toolbar mToolbar;
 
     private KenBurnsView mKenBurns;
 
@@ -95,53 +88,34 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 
 
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-	private boolean debug = true;
+	private boolean debug = false;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.main_screen;
+    }
+
+    @Override
+    protected int getDrawerLayout() {
+        return R.id.drawer_layout;
+    }
+
+    @Override
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
-		setContentView(R.layout.main_screen);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
         mKenBurns = (KenBurnsView) findViewById(R.id.ken_burns_images);
+        mKenBurns.setImageResource(R.drawable.background_ot);
         RobotoTextView welcome1 = (RobotoTextView) findViewById(R.id.welcome_text_1);
         RobotoTextView welcome2 = (RobotoTextView) findViewById(R.id.welcome_text_2);
         ImageView nfcScanImg = (ImageView) findViewById(R.id.nfc_scan_img);
         nfcScanImg.setAlpha(0.0f);
         welcome1.setAlpha(0.0f);
         welcome2.setAlpha(0.0f);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mTitle = mDrawerTitle = getTitle();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_view);
+        animationAlpha(nfcScanImg,500);
+        animationAlpha(welcome1,1000);
+        animationAlpha(welcome2,1500);
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        prepareNavigationDrawerItems();
-        setAdapter();
-        mKenBurns.setImageResource(R.drawable.background_ot);
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
-                R.string.drawer_open,
-                R.string.drawer_close) {
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu();
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        if (savedInstanceState == null) {
-           // mDrawerLayout.openDrawer(mDrawerList);
-            animationAlpha(nfcScanImg, 1000);
-            animationAlpha(welcome1, 1700);
-            animationAlpha(welcome2, 1700);
-        }
 
         if (debug) {
 			resolveIntentMock(getIntent());
@@ -299,114 +273,6 @@ public class MainScreen extends ActionBarActivity implements OnTaskCompleted {
 		}
 	}
 
-    private void prepareNavigationDrawerItems() {
-        mDrawerItems = new ArrayList<>();
-        mDrawerItems.add(
-                new DrawerItem(
-                        R.string.drawer_icon_linked_in,
-                        R.string.scan_history_text,
-                        DrawerItem.DRAWER_ITEM_TAG_LINKED_IN));
-        mDrawerItems.add(
-                new DrawerItem(
-                        R.string.drawer_icon_blog,
-                        R.string.term_of_use_text,
-                        DrawerItem.DRAWER_ITEM_TAG_BLOG));
-        mDrawerItems.add(
-                new DrawerItem(
-                        R.string.drawer_icon_git_hub,
-                        R.string.version_text,
-                        DrawerItem.DRAWER_ITEM_TAG_GIT_HUB));
-
-    }
-
-    private void setAdapter() {
-
-        View headerView = null;
-        headerView = prepareHeaderView(R.layout.header_navigation_drawer_1,
-                    "http://pengaja.com/uiapptemplate/avatars/0.jpg",
-                    "dev@csform.com");
-
-
-        BaseAdapter adapter = new DrawerAdapter(this, mDrawerItems, true);
-
-        mDrawerList.addHeaderView(headerView);//Add header before adapter (for pre-KitKat)
-        mDrawerList.setAdapter(adapter);
-    }
-
-    private View prepareHeaderView(int layoutRes, String url, String email) {
-        View headerView = getLayoutInflater().inflate(layoutRes, mDrawerList, false);
-        //ImageView iv = (ImageView) headerView.findViewById(R.id.image);
-        //TextView tv = (TextView) headerView.findViewById(R.id.email);
-        //tv.setText(email);
-        return headerView;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            selectItem(position/*, mDrawerItems.get(position - 1).getTag()*/);
-        }
-    }
-
-    private void selectItem(int position/*, int drawerTag*/) {
-        // minus 1 because we have header that has 0 position
-        if (position < 1) { //because we have header, we skip clicking on it
-            return;
-        }
-        String drawerTitle = getString(mDrawerItems.get(position - 1).getTitle());
-        Toast.makeText(this, "You selected " + drawerTitle + " at position: " + position, Toast.LENGTH_SHORT).show();
-
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mDrawerItems.get(position - 1).getTitle());
-        mDrawerLayout.closeDrawer(mDrawerList);
-//        Intent intent = new Intent(MainScreen.this,BaseFragmentActivity.class);
-//        startActivity(intent);
-    }
-
-    @Override
-    public void setTitle(int titleId) {
-        setTitle(getString(titleId));
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
 
     private void animationAlpha(View v,int delay) {
         ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(v, "alpha", 0.0F, 1.0F);

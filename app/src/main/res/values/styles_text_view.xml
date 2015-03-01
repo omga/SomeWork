@@ -20,7 +20,7 @@
 	<style name="TextViewAppearance.Display1" parent="@style/TextViewAppearance">
         <item name="typeface">robotoRegular</item>
         <item name="android:textSize">45sp</item>
-        <item name="android:textColor">@color/main_color_grey_500</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Headline1" parent="@style/TextViewAppearance">
@@ -31,14 +31,14 @@
     
 	<style name="TextViewAppearance.Title1" parent="@style/TextViewAppearance">
         <item name="typeface">robotoMedium</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/main_color_grey_400</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Body1" parent="@style/TextViewAppearance">
         <item name="typeface">robotoMedium</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/main_color_grey_600</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Caption1" parent="@style/TextViewAppearance">
@@ -52,25 +52,25 @@
 	<style name="TextViewAppearance.Display2" parent="@style/TextViewAppearance">
         <item name="typeface">robotoThin</item>
         <item name="android:textSize">45sp</item>
-        <item name="android:textColor">@color/main_color_grey_500</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Headline2" parent="@style/TextViewAppearance">
         <item name="typeface">robotoLight</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/main_color_grey_600</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Title2" parent="@style/TextViewAppearance">
         <item name="typeface">robotoRegular</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/main_color_grey_400</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Body2" parent="@style/TextViewAppearance">
         <item name="typeface">robotoLight</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/main_color_grey_600</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Caption2" parent="@style/TextViewAppearance">
@@ -84,25 +84,25 @@
 	<style name="TextViewAppearance.Display3" parent="@style/TextViewAppearance">
         <item name="typeface">robotoBlack</item>
         <item name="android:textSize">45sp</item>
-        <item name="android:textColor">@color/main_color_grey_500</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Headline3" parent="@style/TextViewAppearance">
         <item name="typeface">robotoMedium</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/main_color_grey_600</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Title3" parent="@style/TextViewAppearance">
         <item name="typeface">robotoBlack</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/main_color_grey_400</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Body3" parent="@style/TextViewAppearance">
         <item name="typeface">robotoMedium</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/main_color_grey_600</item>
+        <item name="android:textColor">@color/main_color_grey_200</item>
     </style>
     
 	<style name="TextViewAppearance.Caption3" parent="@style/TextViewAppearance">

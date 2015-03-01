@@ -1,6 +1,7 @@
 package se.anyro.nfc_reader;
 
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -73,19 +74,19 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
         mDrawerItems = new ArrayList<>();
         mDrawerItems.add(
                 new DrawerItem(
-                        R.string.drawer_icon_linked_in,
+                        R.drawable.history_ic,
                         R.string.scan_history_text,
-                        DrawerItem.DRAWER_ITEM_TAG_LINKED_IN));
+                        DrawerItem.DRAWER_ITEM_TAG_SCAN_HISTORY));
         mDrawerItems.add(
                 new DrawerItem(
-                        R.string.drawer_icon_blog,
+                        R.drawable.bookmark_ic,
                         R.string.term_of_use_text,
-                        DrawerItem.DRAWER_ITEM_TAG_BLOG));
+                        DrawerItem.DRAWER_ITEM_TAG_TERMS_OF_USE));
         mDrawerItems.add(
                 new DrawerItem(
-                        R.string.drawer_icon_git_hub,
+                        R.drawable.floppy_disk_ic,
                         R.string.version_text,
-                        DrawerItem.DRAWER_ITEM_TAG_GIT_HUB));
+                        DrawerItem.DRAWER_ITEM_TAG_VERSION));
 
     }
 
@@ -144,12 +145,18 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
         if (position < 1) { //because we have header, we skip clicking on it
             return;
         }
-        String drawerTitle = getString(mDrawerItems.get(position - 1).getTitle());
-        Toast.makeText(this, "You selected " + drawerTitle + " at position: " + position, Toast.LENGTH_SHORT).show();
+        //String drawerTitle = getString(mDrawerItems.get(position - 1).getTitle());
+        //Toast.makeText(this, "You selected " + drawerTitle + " at position: " + position, Toast.LENGTH_SHORT).show();
 
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mDrawerItems.get(position - 1).getTitle());
+        mDrawerList.setItemChecked(position, false);
+//        setTitle(mDrawerItems.get(position - 1).getTitle());
         mDrawerLayout.closeDrawer(mDrawerList);
+        if(mDrawerItems.get(position-1).getTag()==DrawerItem.DRAWER_ITEM_TAG_TERMS_OF_USE) {
+            if(!(BaseFragmentActivity.this instanceof TermsOfUseActivity)) {
+                Intent i = new Intent(BaseFragmentActivity.this, TermsOfUseActivity.class);
+                startActivity(i);
+            }
+        }
     }
 
     @Override
