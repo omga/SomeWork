@@ -73,6 +73,7 @@
             <se.anyro.nfc_reader.font.RobotoTextView
                 android:layout_marginTop="10dp"
                 style="@style/TextViewAppearance.Headline1_360"
+                android:textSize="32sp"
                 android:layout_gravity="center"
                 android:text="@string/auth_screen_message_1"
                 />
@@ -89,9 +90,10 @@
                 android:id="@+id/btnProductInformation"
                 android:background="@drawable/border_button"
                 android:textColor="@android:color/white"
-                android:padding="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:text="@string/product_information_button" />
 

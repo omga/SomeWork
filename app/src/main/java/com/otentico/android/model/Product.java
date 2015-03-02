@@ -1,5 +1,14 @@
 package com.otentico.android.model;
 
+import android.content.Context;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,12 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Product {
-
+    public static String FILENAME = "product_scan_history.txt";
 	private static Product instance = new Product();
 
 	private Map<String, Property> props = new HashMap<String, Property>();
 
-	public void populateProduct(JSONObject product) throws JSONException {
+
+    public void populateProduct(JSONObject product) throws JSONException {
 		props.clear();
 		getProps().put("sku", new Property("SKU", product.getString("sku")));
 		getProps().put("desc",
@@ -32,6 +42,8 @@ public class Product {
 						"homologationID").getString("issuerNo")));
 
 	}
+
+
 
 	private Product() {
 	}

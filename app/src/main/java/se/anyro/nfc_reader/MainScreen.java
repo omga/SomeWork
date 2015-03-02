@@ -16,22 +16,11 @@
  */
 package se.anyro.nfc_reader;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.location.Address;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -39,45 +28,38 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.otentico.android.model.DrawerItem;
 import com.otentico.android.model.Product;
+import com.otentico.android.model.ProductRealm;
 import com.otentico.android.nfc.NFCAuthInfoTask;
 import com.otentico.android.nfc.OnTaskCompleted;
 import com.otentico.android.nfc.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
+import io.realm.Realm;
 import se.anyro.nfc_reader.font.RobotoTextView;
 import se.anyro.nfc_reader.view.kbv.KenBurnsView;
 
 
 public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted {
 
-	public static final String NFC_UID = "NFC_UID";
-	public static final String COMPANY_NAME = "COMPANY_NAME";
+    // Set this value to TRUE if you want to mock the NFC tag info for tests
+    private boolean debug = true;
+
+    public static final String COMPANY_NAME = "COMPANY_NAME";
 	public static final String COMPANY_IMAGE_URL = "COMPANY_IMAGE_URL";
 	public static final String PRODUCT_IMAGE = "PRODUCT_IMAGE";
-
-    public static final String LEFT_MENU_OPTION_1 = "Left Menu Option 1";
-    public static final String LEFT_MENU_OPTION_2 = "Left Menu Option 2";
-
-
 
     private KenBurnsView mKenBurns;
 
@@ -85,10 +67,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 	private PendingIntent mPendingIntent;
 	private NdefMessage mNdefPushMessage;
 	private AlertDialog mDialog;
-
-
-    // Set this value to TRUE if you want to mock the NFC tag info for tests
-	private boolean debug = true;
+    private String nfc_uid="";
 
     @Override
     protected int getActivityLayout() {
@@ -218,7 +197,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 			// Unknown tag type
 			Parcelable tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-			String nfc_uid = Utils.dumpTagData(tag).replace(' ', ':');
+			nfc_uid = Utils.dumpTagData(tag).replace(' ', ':');
 
 			NFCAuthInfoTask auth_task = new NFCAuthInfoTask(this);
 
@@ -241,7 +220,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 	private void resolveIntentMock(Intent intent) {
 
 		//String nfc_uid = "54:d1:53:6c:0d:1a:d4:b4:14:d0:20:16";
-		String nfc_uid = "80:26:f5:8a:6c:f1:04";
+		nfc_uid = "80:26:f5:8a:6c:f1:04";
 		NFCAuthInfoTask auth_task = new NFCAuthInfoTask(this);
 
 		// auth_task.execute(nfc_uid, "Not Found", "Not Found");
@@ -250,7 +229,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 			Address address = Utils.getAddress(this);
 			String identity = Utils.getIdentity(this);
             String androidID = Utils.getAndroidID(this);
-            Toast.makeText(this,"addr:"+address+" idt: "+identity,Toast.LENGTH_LONG).show();
+
             if (address == null) {
 				auth_task.execute(nfc_uid, "Not Found", "Not Found",identity, androidID);
 				return;
@@ -289,6 +268,15 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 		try {
 			JSONObject prod = new JSONObject(result);
 			if (prod.length() > 0) {
+                Realm realm = Realm.getInstance(getApplicationContext());
+                realm.beginTransaction();
+                ProductRealm pr = realm.createObject(ProductRealm.class);
+                pr.setUuid(UUID.randomUUID().toString());
+                pr.setDate(new Date());
+                pr.setProductData(result);
+                pr.setNfc_uid(nfc_uid);
+                realm.commitTransaction();
+                Log.d("Realm",pr.getDate().toString()+pr.getProductData());
 
 				Product.getInstance().populateProduct(prod);
 				Intent i = new Intent(this, AuthenticatedScreen.class);

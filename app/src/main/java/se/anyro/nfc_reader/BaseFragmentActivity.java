@@ -175,6 +175,11 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
                 Intent i = new Intent(BaseFragmentActivity.this, TermsOfUseActivity.class);
                 startActivity(i);
             }
+        } else if(mDrawerItems.get(position-1).getTag()==DrawerItem.DRAWER_ITEM_TAG_SCAN_HISTORY) {
+            if(!(BaseFragmentActivity.this instanceof RecentHistoryActivity)) {
+                Intent i = new Intent(BaseFragmentActivity.this, RecentHistoryActivity.class);
+                startActivity(i);
+            }
         }
     }
 

@@ -33,11 +33,11 @@
 
         <ImageView
             android:id="@+id/nfc_scan_img"
-            android:layout_width="320dp"
-            android:layout_height="320dp"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="100dp"
             android:src="@drawable/nfc_scanning_phone_1" />
 
 
