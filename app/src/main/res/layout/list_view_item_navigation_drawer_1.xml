@@ -18,10 +18,10 @@
         <ImageView
             android:id="@+id/icon"
             android:paddingLeft="20dp"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:scaleType="fitCenter"
-            android:textColor="@drawable/selector_text_empty"
+
              />
 
         <se.anyro.nfc_reader.font.RobotoTextView

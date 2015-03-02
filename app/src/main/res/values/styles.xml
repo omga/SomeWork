@@ -18,6 +18,9 @@
     <style name="AppTheme.Title" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
+    <style name="AppTheme.TitleMainTransparent" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/transparent</item>
+    </style>
 
     <!-- ActionBar related themes -->
     <style name="ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar">
