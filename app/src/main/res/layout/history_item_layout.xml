@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<se.anyro.nfc_reader.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/RippleStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_background_empty">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#222222">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="4dp"
+            android:src="@drawable/yellow_square" />
+
+        <se.anyro.nfc_reader.font.RobotoTextView
+            android:id="@+id/date_textView"
+            style="@style/TextViewAppearance.Body1"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_toRightOf="@id/imageView"
+            android:padding="1dp"
+            android:text="Date"
+            android:textSize="12sp" />
+
+        <se.anyro.nfc_reader.font.RobotoTextView
+            android:id="@+id/nfc_tag_textView"
+            style="@style/TextViewAppearance.Body1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="1dp"
+            android:text="id"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/separator1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/date_textView"
+            android:background="@color/white_30_percent" />
+
+        <se.anyro.nfc_reader.font.RobotoTextView
+            android:id="@+id/name_textView"
+            style="@style/TextViewAppearance.Caption1"
+            android:layout_width="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/separator1"
+            android:background="#333333"
+            android:paddingBottom="1dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="1dp"
+            android:text="Description"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/name_textView"
+            android:background="@color/white_30_percent" />
+    </RelativeLayout>
+</se.anyro.nfc_reader.MaterialRippleLayout>
