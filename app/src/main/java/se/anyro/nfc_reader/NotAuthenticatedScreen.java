@@ -43,10 +43,13 @@ public class NotAuthenticatedScreen extends BaseFragmentActivity {
 //        setContentView(R.layout.not_authenticated_screen);
 //        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(mToolbar);
-
-        Utils.playAudioTrack(this, R.raw.error_sound);
+        Utils.playAudioTrack(this, R.raw.tone_his_self);
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+    }
 }

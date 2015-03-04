@@ -21,11 +21,14 @@ import android.provider.Settings;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+
+import se.anyro.nfc_reader.R;
 
 public class Utils {
 
@@ -198,47 +201,61 @@ public class Utils {
     public static void playAudioTrack(final Context ctx, final int audioResId) {
         new AsyncTask<Void, Void, Void>() {
             AudioTrack mAudioTrack;
+            InputStream in1;
 
             @Override
             protected Void doInBackground(Void... params) {
-
+                int buffMin = AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
+                Log.e("AUDIO","0 "+buffMin);
                 mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
                         AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
-                        44100, AudioTrack.MODE_STREAM);
-                InputStream in1 = ctx.getResources().openRawResource(audioResId);
+                        buffMin, AudioTrack.MODE_STREAM);
+                in1 = ctx.getResources().openRawResource(audioResId);
                 byte[] music = null;
                 try {
                     music = convertStreamToByteArray(in1);
                     mAudioTrack.play();
                     mAudioTrack.write(music, 0, music.length);
-                    mAudioTrack.flush();
-                    in1.close();
+                    //mAudioTrack.flush();
+                    //in1.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                mAudioTrack.release();
-                mAudioTrack = null;
+
+                try {
+                    mAudioTrack.release();
+                    in1.close();
+                    mAudioTrack = null;
+                } catch (IOException e) {
+
+                    Log.e("AUDIO","onPostExecute "+ e.getMessage());
+                }
+
             }
         }.execute();
 
     }
 
     private static byte[] convertStreamToByteArray(InputStream is) throws IOException {
-
+        Log.e("AUDIO",""+is.available());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buff = new byte[is.available()];
         int i;
         while ((i = is.read(buff, 0, buff.length)) > 0) {
             baos.write(buff, 0, i);
         }
+
         baos.flush();
+        Log.e("AUDIO","2 "+baos.size());
         byte[] b = baos.toByteArray();
+        Log.e("AUDIO","3 "+b.length);
         baos.close();
         return b; // be sure to close InputStream in calling function
 

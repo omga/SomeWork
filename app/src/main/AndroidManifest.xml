@@ -54,7 +54,6 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".AuthenticatedScreen"
             android:label="@string/scan_results_text"
@@ -76,7 +75,6 @@
         <activity android:name=".RecentHistoryActivity"
             android:label="Scan History"
             android:screenOrientation="portrait" />
-
 
     </application>
 
