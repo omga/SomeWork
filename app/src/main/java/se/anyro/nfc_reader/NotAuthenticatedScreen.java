@@ -47,9 +47,4 @@ public class NotAuthenticatedScreen extends BaseFragmentActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 }

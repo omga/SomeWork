@@ -55,7 +55,7 @@ import se.anyro.nfc_reader.view.kbv.KenBurnsView;
 public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted {
 
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-    private boolean debug = true;
+    private boolean debug = false;
 
     public static final String COMPANY_NAME = "COMPANY_NAME";
     public static final String COMPANY_IMAGE_URL = "COMPANY_IMAGE_URL";

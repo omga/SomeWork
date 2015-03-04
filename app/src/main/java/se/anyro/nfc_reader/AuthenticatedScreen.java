@@ -62,7 +62,7 @@ public class AuthenticatedScreen extends BaseFragmentActivity {
                 actitvity_intent.putExtra(MainScreen.COMPANY_IMAGE_URL,
                         company_logo_url);
                 startActivity(actitvity_intent);
-                
+
 
             }
         });
@@ -70,9 +70,4 @@ public class AuthenticatedScreen extends BaseFragmentActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 }
