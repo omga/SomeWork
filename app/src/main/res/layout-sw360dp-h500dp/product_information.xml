@@ -38,13 +38,12 @@
             android:background="@drawable/background_ot">
 
             <ScrollView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/footer_text">
 
                 <LinearLayout
-
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -254,7 +253,7 @@
 
                     <View
                         android:layout_width="1dp"
-                        android:layout_height="20dp"></View>
+                        android:layout_height="30dp"></View>
 
                     <se.anyro.nfc_reader.view.ProgressWheel
                         android:id="@+id/progress_bar"

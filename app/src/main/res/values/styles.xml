@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
@@ -15,9 +16,11 @@
         <item name="colorPrimary">@color/main_color_500</item>
         <item name="colorPrimaryDark">@color/main_color_700</item>
     </style>
+
     <style name="AppTheme.Title" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
+
     <style name="AppTheme.TitleMainTransparent" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@color/transparent</item>
     </style>

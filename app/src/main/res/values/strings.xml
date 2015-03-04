@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2011 Adam Nybäck
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,29 +19,29 @@
     <string name="error">Error</string>
     <string name="no_nfc">No NFC found on this device</string>
     <string name="nfc_disabled">NFC is not enabled. Please go to the wireless settings to enable it.</string>
-    
+
     <string name="home_screen_message_0">Welcome to Otentico</string>
     <string name="home_screen_message_1">Scan NFC Tag</string>
-	<string name="home_screen_message_2">Place Phone close to NFC Tag</string>
+    <string name="home_screen_message_2">Place Phone close to NFC Tag</string>
 
-	<string name="scan_results_text">Scan Result</string>
-	<string name="auth_screen_message_1">Authenticated by</string>
-	<string name="product_information_button">Product information</string>
-	<string name="brand_info_button">Brand\ninformation</string>
-	
-	
-	<string name="not_auth_screen_message_0">Scan Result</string>
-	<string name="not_auth_screen_message_1">Oops...</string>
-	<string name="not_auth_screen_message_2">This product can’t\n  be authenticated</string>
+    <string name="scan_results_text">Scan Result</string>
+    <string name="auth_screen_message_1">Authenticated by</string>
+    <string name="product_information_button">Product information</string>
+    <string name="brand_info_button">Brand\ninformation</string>
 
-	<string name="not_auth_button_1">Report\nUnauthentic</string>
-	<string name="not_auth_button_2">Request Future\nAuthentication</string>
-	
-	<string name="product_information_screen_message_1">Product information</string>
-	
-	<string name="footer_message">Powered by <b>Otentico</b></string>
-	<string name="footer_message_first_word">Powered by </string>
-	<string name="footer_message_second_word">Otentico</string>
+
+    <string name="not_auth_screen_message_0">Scan Result</string>
+    <string name="not_auth_screen_message_1">Oops...</string>
+    <string name="not_auth_screen_message_2">This product can’t\n  be authenticated</string>
+
+    <string name="not_auth_button_1">Report\nUnauthentic</string>
+    <string name="not_auth_button_2">Request Future\nAuthentication</string>
+
+    <string name="product_information_screen_message_1">Product information</string>
+
+    <string name="footer_message">Powered by <b>Otentico</b></string>
+    <string name="footer_message_first_word">Powered by </string>
+    <string name="footer_message_second_word">Otentico</string>
 
     <string name="drawer_icon_linked_in">&#xe80e;</string>
     <string name="drawer_icon_blog">&#xe81e;</string>
@@ -62,5 +61,6 @@
     <string name="term_of_use_text">Terms of Use</string>
     <string name="version_text">Version: 1.0.1</string>
     <string name="contact_otentico_text">otenti.co</string>
+    <string name="empty_history">Scan History is empty...</string>
 
 </resources>

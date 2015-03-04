@@ -13,7 +13,6 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,8 +22,40 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <LinearLayout
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/negative_icon_500" />
+
+
+        <se.anyro.nfc_reader.font.RobotoTextView
+            android:layout_marginTop="30dp"
+            android:padding="0dp"
+            style="@style/TextViewAppearance.Headline1"
+            android:layout_gravity="center"
+            android:text="@string/not_auth_screen_message_1" />
+
+
+        <se.anyro.nfc_reader.font.RobotoTextView
+            android:padding="0dp"
+            style="@style/TextViewAppearance.Headline1"
+            android:layout_gravity="center"
+            android:text="@string/not_auth_screen_message_2" />
+
+    </LinearLayout>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -53,53 +84,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
-
-
-        <LinearLayout
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="280dp"
-                android:layout_height="180dp"
-                android:scaleType="fitXY"
-                android:layout_gravity="center"
-                android:layout_marginTop="80dp"
-                android:src="@drawable/positive_icon_500" />
-
-            <se.anyro.nfc_reader.font.RobotoTextView
-                android:layout_marginTop="30dp"
-                android:textSize="36sp"
-                style="@style/TextViewAppearance.Headline1_360"
-                android:layout_gravity="center"
-                android:text="@string/auth_screen_message_1"
-                />
-
-            <ImageView
-                android:id="@+id/company_logo"
-                android:layout_width="260dp"
-                android:layout_height="110dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
-                android:src="@drawable/fyshe_logo" />
-
-            <Button
-                android:id="@+id/btnProductInformation"
-                android:background="@drawable/border_button"
-                android:textColor="@android:color/white"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:text="@string/product_information_button" />
-
-
-        </LinearLayout>
-
 
         <include
             layout="@layout/list_view"

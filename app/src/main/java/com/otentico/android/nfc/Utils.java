@@ -1,301 +1,247 @@
 package com.otentico.android.nfc;
 
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.AudioFormat;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.media.AudioTrack;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
-import android.os.Handler;
+import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 
-import se.anyro.nfc_reader.R;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 public class Utils {
-	
-	public static final String HOST = "http://db.avaliatech.com/";
+
+    public static final String HOST = "http://otenti.co/";
 
 
-    static MediaPlayer getMediaPlayer(Context context, int soundResId){
-
-        MediaPlayer mediaplayer = new MediaPlayer();
-
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            return mediaplayer;
-        }
-
-        try {
-            Class<?> cMediaTimeProvider = Class.forName( "android.media.MediaTimeProvider" );
-            Class<?> cSubtitleController = Class.forName( "android.media.SubtitleController" );
-            Class<?> iSubtitleControllerAnchor = Class.forName( "android.media.SubtitleController$Anchor" );
-            Class<?> iSubtitleControllerListener = Class.forName( "android.media.SubtitleController$Listener" );
-
-            Constructor constructor = cSubtitleController.getConstructor(new Class[]{Context.class, cMediaTimeProvider, iSubtitleControllerListener});
-
-            Object subtitleInstance = constructor.newInstance(context, null, null);
-
-            Field f = cSubtitleController.getDeclaredField("mHandler");
-
-            f.setAccessible(true);
-            try {
-                f.set(subtitleInstance, new Handler());
-            }
-            catch (IllegalAccessException e) {return mediaplayer;}
-            finally {
-                f.setAccessible(false);
-            }
-
-            Method setsubtitleanchor = mediaplayer.getClass().getMethod("setSubtitleAnchor", cSubtitleController, iSubtitleControllerAnchor);
-
-            setsubtitleanchor.invoke(mediaplayer, subtitleInstance, null);
-            //Log.e("", "subtitle is setted :p");
-        } catch (Exception e) {}
-
-        return mediaplayer;
-    }
-
-    public static void playSound(Context context, int soundResId) {
-
-        MediaPlayer mp;
-       // mp = MediaPlayer.create(context, soundResId);
-       // mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mp = getMediaPlayer(context,soundResId);
-
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-                mp.reset();
-                mp.release();
-                mp=null;
-            }
-
-        });
-        AssetFileDescriptor afd = context.getResources().openRawResourceFd(soundResId);
-
-        try
-        {
-            mp.reset();
-            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
-            mp.prepareAsync();
-            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mp.start();
-                }
-            });
-
-            afd.close();
-        }
-        catch (IllegalArgumentException e)
-        {
-            Log.e("playSound", "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        }
-        catch (IllegalStateException e)
-        {
-            Log.e("playSound", "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-	public static Address getAddress(Activity activity) throws IOException {
-		LocationManager locationManager = (LocationManager) activity
-				.getSystemService(Context.LOCATION_SERVICE);
+    public static Address getAddress(Activity activity) throws IOException {
+        LocationManager locationManager = (LocationManager) activity
+                .getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
         String bestProvider = locationManager.getBestProvider(criteria, true);
 
         Location lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
-        Log.d("addr","lst loc"+lastKnownLocation);
-                //Location lastKnownLocation = getLastKnownLocation(locationManager);
-		if(lastKnownLocation ==null){
-			return null;
-		}
-        Log.d("addr",""+criteria);
-        Log.d("addr",""+bestProvider);
-        Log.d("addr",""+lastKnownLocation + "lat: " + lastKnownLocation.getLatitude()+ "lon: " + lastKnownLocation.getLongitude());
-		Geocoder geocoder = new Geocoder(activity, Locale.US);
-        Log.d("addr","locale: " + Locale.getDefault());
-		List<Address> address = geocoder.getFromLocation(
-				lastKnownLocation.getLatitude(),
-				lastKnownLocation.getLongitude(), 1);
-		if (address != null && !address.isEmpty()) {
-            Log.d("addr","locale: " + address.get(0));
-			return address.get(0);
-		}
-		return null;
-	}
-	
-	private static Location getLastKnownLocation(LocationManager mLocationManager) {
-	    List<String> providers = mLocationManager.getProviders(true);
-	    Location bestLocation = null;
-	    for (String provider : providers) {
-	        Location l = mLocationManager.getLastKnownLocation(provider);
-	        if (l == null) {
-	            continue;
-	        }
-	        if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-	            // Found best last known location: %s", l);
-	            bestLocation = l;
-	        }
-	    }
-	    return bestLocation;
-	}
+        Log.d("addr", "lst loc" + lastKnownLocation);
+        //Location lastKnownLocation = getLastKnownLocation(locationManager);
+        if (lastKnownLocation == null) {
+            return null;
+        }
+        Log.d("addr", "" + criteria);
+        Log.d("addr", "" + bestProvider);
+        Log.d("addr", "" + lastKnownLocation + "lat: " + lastKnownLocation.getLatitude() + "lon: " + lastKnownLocation.getLongitude());
+        Geocoder geocoder = new Geocoder(activity, Locale.US);
+        Log.d("addr", "locale: " + Locale.getDefault());
+        List<Address> address = geocoder.getFromLocation(
+                lastKnownLocation.getLatitude(),
+                lastKnownLocation.getLongitude(), 1);
+        if (address != null && !address.isEmpty()) {
+            Log.d("addr", "locale: " + address.get(0));
+            return address.get(0);
+        }
+        return null;
+    }
 
-	public static String getIdentity(Activity activity) {
-		AccountManager manager = AccountManager.get(activity); 
-	    Account[] accounts = manager.getAccountsByType("com.google"); 
-	    List<String> possibleEmails = new LinkedList<String>();
 
-	    for (Account account : accounts) {
-	      // TODO: Check possibleEmail against an email regex or treat
-	      // account.name as an email address only for certain account.type values.
-	      possibleEmails.add(account.name);
-	    }
+    public static String getIdentity(Activity activity) {
+        AccountManager manager = AccountManager.get(activity);
+        Account[] accounts = manager.getAccountsByType("com.google");
+        List<String> possibleEmails = new LinkedList<String>();
 
-	    if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
-	        String email = possibleEmails.get(0);
-	        String[] parts = email.split("@");
+        for (Account account : accounts) {
+            // TODO: Check possibleEmail against an email regex or treat
+            // account.name as an email address only for certain account.type values.
+            possibleEmails.add(account.name);
+        }
 
-	        if (parts.length > 1)
-	            return parts[0];
-	    }
-	    return null;
-	}
+        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+            String email = possibleEmails.get(0);
+            String[] parts = email.split("@");
 
-    public static String getAndroidID(Context context){
+            if (parts.length > 1)
+                return parts[0];
+        }
+        return null;
+    }
+
+    public static String getAndroidID(Context context) {
         return Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
     }
-	
-	public static String dumpTagData(Parcelable p) {
-		StringBuilder sb = new StringBuilder();
-		Tag tag = (Tag) p;
-		byte[] id = tag.getId();
-		sb.append("Tag ID (hex): ").append(getHex(id)).append("\n");
-		sb.append("Tag ID (dec): ").append(getDec(id)).append("\n");
-		sb.append("ID (reversed): ").append(getReversed(id)).append("\n");
 
-		Log.d("nfc-reader", "HEX: " + getHex(id).replace(' ', ':') + " DEC: "
-				+ getDec(id));
+    public static String dumpTagData(Parcelable p) {
+        StringBuilder sb = new StringBuilder();
+        Tag tag = (Tag) p;
+        byte[] id = tag.getId();
+        sb.append("Tag ID (hex): ").append(getHex(id)).append("\n");
+        sb.append("Tag ID (dec): ").append(getDec(id)).append("\n");
+        sb.append("ID (reversed): ").append(getReversed(id)).append("\n");
 
-		String prefix = "android.nfc.tech.";
-		sb.append("Technologies: ");
-		for (String tech : tag.getTechList()) {
-			sb.append(tech.substring(prefix.length()));
-			sb.append(", ");
-		}
-		sb.delete(sb.length() - 2, sb.length());
-		for (String tech : tag.getTechList()) {
-			if (tech.equals(MifareClassic.class.getName())) {
-				sb.append('\n');
-				MifareClassic mifareTag = MifareClassic.get(tag);
-				String type = "Unknown";
-				switch (mifareTag.getType()) {
-				case MifareClassic.TYPE_CLASSIC:
-					type = "Classic";
-					break;
-				case MifareClassic.TYPE_PLUS:
-					type = "Plus";
-					break;
-				case MifareClassic.TYPE_PRO:
-					type = "Pro";
-					break;
-				}
-				sb.append("Mifare Classic type: ");
-				sb.append(type);
-				sb.append('\n');
+        Log.d("nfc-reader", "HEX: " + getHex(id).replace(' ', ':') + " DEC: "
+                + getDec(id));
 
-				sb.append("Mifare size: ");
-				sb.append(mifareTag.getSize() + " bytes");
-				sb.append('\n');
+        String prefix = "android.nfc.tech.";
+        sb.append("Technologies: ");
+        for (String tech : tag.getTechList()) {
+            sb.append(tech.substring(prefix.length()));
+            sb.append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        for (String tech : tag.getTechList()) {
+            if (tech.equals(MifareClassic.class.getName())) {
+                sb.append('\n');
+                MifareClassic mifareTag = MifareClassic.get(tag);
+                String type = "Unknown";
+                switch (mifareTag.getType()) {
+                    case MifareClassic.TYPE_CLASSIC:
+                        type = "Classic";
+                        break;
+                    case MifareClassic.TYPE_PLUS:
+                        type = "Plus";
+                        break;
+                    case MifareClassic.TYPE_PRO:
+                        type = "Pro";
+                        break;
+                }
+                sb.append("Mifare Classic type: ");
+                sb.append(type);
+                sb.append('\n');
 
-				sb.append("Mifare sectors: ");
-				sb.append(mifareTag.getSectorCount());
-				sb.append('\n');
+                sb.append("Mifare size: ");
+                sb.append(mifareTag.getSize() + " bytes");
+                sb.append('\n');
 
-				sb.append("Mifare blocks: ");
-				sb.append(mifareTag.getBlockCount());
-			}
+                sb.append("Mifare sectors: ");
+                sb.append(mifareTag.getSectorCount());
+                sb.append('\n');
 
-			if (tech.equals(MifareUltralight.class.getName())) {
-				sb.append('\n');
-				MifareUltralight mifareUlTag = MifareUltralight.get(tag);
-				String type = "Unknown";
-				switch (mifareUlTag.getType()) {
-				case MifareUltralight.TYPE_ULTRALIGHT:
-					type = "Ultralight";
-					break;
-				case MifareUltralight.TYPE_ULTRALIGHT_C:
-					type = "Ultralight C";
-					break;
-				}
-				sb.append("Mifare Ultralight type: ");
-				sb.append(type);
-			}
-		}
+                sb.append("Mifare blocks: ");
+                sb.append(mifareTag.getBlockCount());
+            }
 
-		// return sb.toString();
-		return getHex(id);
-	}
-	
-	
-	private static String getHex(byte[] bytes) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = bytes.length - 1; i >= 0; --i) {
-			int b = bytes[i] & 0xff;
-			if (b < 0x10)
-				sb.append('0');
-			sb.append(Integer.toHexString(b));
-			if (i > 0) {
-				sb.append(" ");
-			}
-		}
-		return sb.toString();
-	}
+            if (tech.equals(MifareUltralight.class.getName())) {
+                sb.append('\n');
+                MifareUltralight mifareUlTag = MifareUltralight.get(tag);
+                String type = "Unknown";
+                switch (mifareUlTag.getType()) {
+                    case MifareUltralight.TYPE_ULTRALIGHT:
+                        type = "Ultralight";
+                        break;
+                    case MifareUltralight.TYPE_ULTRALIGHT_C:
+                        type = "Ultralight C";
+                        break;
+                }
+                sb.append("Mifare Ultralight type: ");
+                sb.append(type);
+            }
+        }
 
-	private static long getDec(byte[] bytes) {
-		long result = 0;
-		long factor = 1;
-		for (int i = 0; i < bytes.length; ++i) {
-			long value = bytes[i] & 0xffl;
-			result += value * factor;
-			factor *= 256l;
-		}
-		return result;
-	}
+        // return sb.toString();
+        return getHex(id);
+    }
 
-	private static long getReversed(byte[] bytes) {
-		long result = 0;
-		long factor = 1;
-		for (int i = bytes.length - 1; i >= 0; --i) {
-			long value = bytes[i] & 0xffl;
-			result += value * factor;
-			factor *= 256l;
-		}
-		return result;
-	}
+
+    private static String getHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = bytes.length - 1; i >= 0; --i) {
+            int b = bytes[i] & 0xff;
+            if (b < 0x10)
+                sb.append('0');
+            sb.append(Integer.toHexString(b));
+            if (i > 0) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private static long getDec(byte[] bytes) {
+        long result = 0;
+        long factor = 1;
+        for (int i = 0; i < bytes.length; ++i) {
+            long value = bytes[i] & 0xffl;
+            result += value * factor;
+            factor *= 256l;
+        }
+        return result;
+    }
+
+    private static long getReversed(byte[] bytes) {
+        long result = 0;
+        long factor = 1;
+        for (int i = bytes.length - 1; i >= 0; --i) {
+            long value = bytes[i] & 0xffl;
+            result += value * factor;
+            factor *= 256l;
+        }
+        return result;
+    }
+
+    public static void playAudioTrack(final Context ctx, final int audioResId) {
+        new AsyncTask<Void, Void, Void>() {
+            AudioTrack mAudioTrack;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
+                        AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
+                        44100, AudioTrack.MODE_STREAM);
+                InputStream in1 = ctx.getResources().openRawResource(audioResId);
+                byte[] music = null;
+                try {
+                    music = convertStreamToByteArray(in1);
+                    mAudioTrack.play();
+                    mAudioTrack.write(music, 0, music.length);
+                    mAudioTrack.flush();
+                    in1.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                mAudioTrack.release();
+                mAudioTrack = null;
+            }
+        }.execute();
+
+    }
+
+    private static byte[] convertStreamToByteArray(InputStream is) throws IOException {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buff = new byte[is.available()];
+        int i;
+        while ((i = is.read(buff, 0, buff.length)) > 0) {
+            baos.write(buff, 0, i);
+        }
+        baos.flush();
+        byte[] b = baos.toByteArray();
+        baos.close();
+        return b; // be sure to close InputStream in calling function
+
+    }
 
 }

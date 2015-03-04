@@ -28,48 +28,71 @@ import android.widget.ImageView;
 /**
  * {@link android.widget.ImageView} extension that animates its image with the
  * <a href="http://en.wikipedia.org/wiki/Ken_Burns_effect">Ken Burns Effect</a>.
+ *
  * @author Flavio Faria
  * @see Transition
  * @see TransitionGenerator
  */
 public class KenBurnsView extends ImageView {
 
-    /** Delay between a pair of frames at a 60 FPS frame rate. */
+    /**
+     * Delay between a pair of frames at a 60 FPS frame rate.
+     */
     private static final long FRAME_DELAY = 1000 / 60;
 
-    /** Matrix used to perform all the necessary transition transformations. */
+    /**
+     * Matrix used to perform all the necessary transition transformations.
+     */
     private final Matrix mMatrix = new Matrix();
 
-    /** The {@link TransitionGenerator} implementation used to perform the transitions between
-     *  rects. The default {@link TransitionGenerator} is {@link RandomTransitionGenerator}. */
+    /**
+     * The {@link TransitionGenerator} implementation used to perform the transitions between
+     * rects. The default {@link TransitionGenerator} is {@link RandomTransitionGenerator}.
+     */
     private TransitionGenerator mTransGen = new RandomTransitionGenerator();
 
-    /** A {@link KenBurnsView.TransitionListener} to be notified when
-     *  a transition starts or ends. */
+    /**
+     * A {@link KenBurnsView.TransitionListener} to be notified when
+     * a transition starts or ends.
+     */
     private TransitionListener mTransitionListener;
 
-    /** The ongoing transition. */
+    /**
+     * The ongoing transition.
+     */
     private Transition mCurrentTrans;
 
-    /** The rect that holds the bounds of this view. */
+    /**
+     * The rect that holds the bounds of this view.
+     */
     private final RectF mViewportRect = new RectF();
-    /** The rect that holds the bounds of the current {@link android.graphics.drawable.Drawable}. */
+    /**
+     * The rect that holds the bounds of the current {@link android.graphics.drawable.Drawable}.
+     */
     private RectF mDrawableRect;
 
-    /** The progress of the animation, in milliseconds. */
+    /**
+     * The progress of the animation, in milliseconds.
+     */
     private long mElapsedTime;
 
-    /** The time, in milliseconds, of the last animation frame.
+    /**
+     * The time, in milliseconds, of the last animation frame.
      * This is useful to increment {@link #mElapsedTime} regardless
-     * of the amount of time the animation has been paused. */
+     * of the amount of time the animation has been paused.
+     */
     private long mLastFrameTime;
 
-    /** Controls whether the the animation is running. */
+    /**
+     * Controls whether the the animation is running.
+     */
     private boolean mPaused;
 
-    /** Indicates whether the parent constructor was already called.
+    /**
+     * Indicates whether the parent constructor was already called.
      * This is needed to distinguish if the image is being set before
-     * or after the super class constructor returns. */
+     * or after the super class constructor returns.
+     */
     private boolean mInitialized;
 
 
@@ -206,7 +229,7 @@ public class KenBurnsView extends ImageView {
     private void startNewTransition() {
         if (!hasBounds()) {
             throw new UnsupportedOperationException("Can't start transition if the " +
-                                                    "drawable has no bounds!");
+                    "drawable has no bounds!");
         }
         mCurrentTrans = mTransGen.generateNextTransition(mDrawableRect, mViewportRect);
         mElapsedTime = 0;
@@ -237,6 +260,7 @@ public class KenBurnsView extends ImageView {
 
     /**
      * Checks whether this view has bounds.
+     *
      * @return
      */
     private boolean hasBounds() {
@@ -246,6 +270,7 @@ public class KenBurnsView extends ImageView {
 
     /**
      * Fires a start event on {@link #mTransitionListener};
+     *
      * @param transition the transition that just started.
      */
     private void fireTransitionStart(Transition transition) {
@@ -257,6 +282,7 @@ public class KenBurnsView extends ImageView {
 
     /**
      * Fires an end event on {@link #mTransitionListener};
+     *
      * @param transition the transition that just ended.
      */
     private void fireTransitionEnd(Transition transition) {
@@ -268,6 +294,7 @@ public class KenBurnsView extends ImageView {
 
     /**
      * Sets the {@link TransitionGenerator} to be used in animations.
+     *
      * @param transgen the {@link TransitionGenerator} to be used in animations.
      */
     public void setTransitionGenerator(TransitionGenerator transgen) {
@@ -280,7 +307,8 @@ public class KenBurnsView extends ImageView {
 
     /**
      * Updates the viewport rect. This must be called every time the size of this view changes.
-     * @param width the new viewport with.
+     *
+     * @param width  the new viewport with.
      * @param height the new viewport height.
      */
     private void updateViewport(float width, float height) {
@@ -349,12 +377,14 @@ public class KenBurnsView extends ImageView {
     public interface TransitionListener {
         /**
          * Notifies the start of a transition.
+         *
          * @param transition the transition that just started.
          */
         public void onTransitionStart(Transition transition);
 
         /**
          * Notifies the end of a transition.
+         *
          * @param transition the transition that just ended.
          */
         public void onTransitionEnd(Transition transition);

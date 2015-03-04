@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-    
+
     <!-- Progress Wheel styles -->
     <style name="ProgressBarStyle">
         <item name="android:layout_width">40dp</item>
@@ -44,7 +44,7 @@
         <item name="rimColor">@color/main_color_700</item>
         <item name="textSize" tools:ignore="SpUsage">24dp</item>
     </style>
-    
+
     <!-- Circular Progress Bar styles (from package ~.view.cpb) -->
     <style name="CircularProgressBarStyle">
         <item name="android:layout_width">112sp</item>

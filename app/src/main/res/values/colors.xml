@@ -1,10 +1,10 @@
 <resources>
-	<color name="title_background">#00545454</color>
-	<color name="footer_background">#545454</color>
-	<color name="background_terms">#727272</color>
-	<color name="background">#333333</color>
-	<color name="text">#FCFCFC</color>
-	<color name="button_background">#282c2f</color>
+    <color name="title_background">#00545454</color>
+    <color name="footer_background">#545454</color>
+    <color name="background_terms">#727272</color>
+    <color name="background">#333333</color>
+    <color name="text">#FCFCFC</color>
+    <color name="button_background">#282c2f</color>
     <color name="transparent">#00000000</color>
 
     <color name="white_15_percent">#26ffffff</color>
@@ -37,7 +37,6 @@
     <color name="main_color_grey_700">@color/material_grey_700</color>
     <color name="main_color_grey_800">@color/material_grey_800</color>
     <color name="main_color_grey_900">@color/material_grey_900</color>
-
 
 
     <!-- PLEASE NOTE: Since adding transparency to already

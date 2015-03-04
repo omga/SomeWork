@@ -28,7 +28,7 @@ public class RecentHistoryActivity extends BaseFragmentActivity {
     private RealmResults<ProductRealm> mRealmResults;
     private RealmAdapter mRealmAdapter;
     private ListView listView;
-    Parcelable mListViewState=null;
+    Parcelable mListViewState = null;
     private Realm mRealm;
 
 
@@ -47,12 +47,14 @@ public class RecentHistoryActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         mRealm = Realm.getInstance(getApplicationContext());
         listView = (ListView) findViewById(R.id.recent_list);
+        TextView emptyText = (TextView) findViewById(R.id.empty);
+        listView.setEmptyView(emptyText);
         updateUI();
         listView.setOnItemClickListener(new ProductClickListener());
     }
 
 
-    public void updateUI(){
+    public void updateUI() {
 //        mCursor = NoteLab.getInstance(getActivity().getApplicationContext()).getCursor();
 //        mCursorAdapter =
         RealmQuery<ProductRealm> query = mRealm.where(ProductRealm.class);
@@ -60,7 +62,7 @@ public class RecentHistoryActivity extends BaseFragmentActivity {
         mRealmResults.sort("date", RealmResults.SORT_ORDER_DESCENDING);
         mRealmAdapter = new RealmAdapter(this, mRealmResults, true);
         (listView).setAdapter(mRealmAdapter);
-        if(mListViewState!=null)
+        if (mListViewState != null)
             listView.onRestoreInstanceState(mListViewState);
     }
 
@@ -70,7 +72,7 @@ public class RecentHistoryActivity extends BaseFragmentActivity {
         mListViewState = listView.onSaveInstanceState();
     }
 
-    private class ProductClickListener implements AdapterView.OnItemClickListener{
+    private class ProductClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -93,6 +95,7 @@ public class RecentHistoryActivity extends BaseFragmentActivity {
 
     private class RealmAdapter extends RealmBaseAdapter<ProductRealm> {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         public RealmAdapter(Context context, RealmResults<ProductRealm> realmResults, boolean automaticUpdate) {
             super(context, realmResults, automaticUpdate);
         }

@@ -16,19 +16,15 @@
  */
 package se.anyro.nfc_reader;
 
-import java.util.Map;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.otentico.android.model.Product;
 import com.otentico.android.model.Property;
 import com.otentico.android.nfc.ImageLoadTask;
-import com.otentico.android.nfc.Utils;
+
+import java.util.Map;
 
 import se.anyro.nfc_reader.view.ProgressWheel;
 import se.anyro.nfc_reader.view.StretchingImageView;
@@ -36,24 +32,24 @@ import se.anyro.nfc_reader.view.StretchingImageView;
 
 public class ProductInformation extends BaseFragmentActivity {
 
-	TextView name_1;
-	TextView name_2;
-	TextView name_3;
-	TextView name_4;
-	TextView name_5;
-	TextView name_6;
+    TextView name_1;
+    TextView name_2;
+    TextView name_3;
+    TextView name_4;
+    TextView name_5;
+    TextView name_6;
 
-	TextView value_1;
-	TextView value_2;
-	TextView value_3;
-	TextView value_4;
-	TextView value_5;
-	TextView value_6;
+    TextView value_1;
+    TextView value_2;
+    TextView value_3;
+    TextView value_4;
+    TextView value_5;
+    TextView value_6;
 
     StretchingImageView product_image;
 
-	String company_name;
-	String company_logo_url;
+    String company_name;
+    String company_logo_url;
     ProgressWheel pb;
 
     @Override
@@ -66,68 +62,68 @@ public class ProductInformation extends BaseFragmentActivity {
         return R.id.drawer_layout;
     }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		Intent intent = getIntent();
+        Intent intent = getIntent();
 
-		company_name = intent.getExtras().getString(MainScreen.COMPANY_NAME);
-		company_logo_url = intent.getExtras().getString(
-				MainScreen.COMPANY_IMAGE_URL);
+        company_name = intent.getExtras().getString(MainScreen.COMPANY_NAME);
+        company_logo_url = intent.getExtras().getString(
+                MainScreen.COMPANY_IMAGE_URL);
 
         pb = (ProgressWheel) findViewById(R.id.progress_bar);
-		name_1 = (TextView) findViewById(R.id.textName1);
-		name_2 = (TextView) findViewById(R.id.textName2);
-		name_3 = (TextView) findViewById(R.id.textName3);
-		name_4 = (TextView) findViewById(R.id.textName4);
-		name_5 = (TextView) findViewById(R.id.textName5);
-		name_6 = (TextView) findViewById(R.id.textName6);
+        name_1 = (TextView) findViewById(R.id.textName1);
+        name_2 = (TextView) findViewById(R.id.textName2);
+        name_3 = (TextView) findViewById(R.id.textName3);
+        name_4 = (TextView) findViewById(R.id.textName4);
+        name_5 = (TextView) findViewById(R.id.textName5);
+        name_6 = (TextView) findViewById(R.id.textName6);
 
-		value_1 = (TextView) findViewById(R.id.textValue1);
-		value_2 = (TextView) findViewById(R.id.textValue2);
-		value_3 = (TextView) findViewById(R.id.textValue3);
-		value_4 = (TextView) findViewById(R.id.textValue4);
-		value_5 = (TextView) findViewById(R.id.textValue5);
-		value_6 = (TextView) findViewById(R.id.textValue6);
-		
-		Map<String, Property> p = Product.getInstance().getProps();
-		
+        value_1 = (TextView) findViewById(R.id.textValue1);
+        value_2 = (TextView) findViewById(R.id.textValue2);
+        value_3 = (TextView) findViewById(R.id.textValue3);
+        value_4 = (TextView) findViewById(R.id.textValue4);
+        value_5 = (TextView) findViewById(R.id.textValue5);
+        value_6 = (TextView) findViewById(R.id.textValue6);
 
-		name_1.setText(p.get("sku").label+":");
-		value_1.setText(p.get("sku").value);
+        Map<String, Property> p = Product.getInstance().getProps();
 
-		name_2.setText(p.get("desc").label+":");
-		value_2.setText(p.get("desc").value);
 
-		name_3.setText(p.get("producer").label+":");
-		value_3.setText(p.get("producer").value);
+        name_1.setText(p.get("sku").label + ":");
+        value_1.setText(p.get("sku").value);
 
-		name_4.setText(p.get("size").label+":");
-		value_4.setText(p.get("size").value);
+        name_2.setText(p.get("desc").label + ":");
+        value_2.setText(p.get("desc").value);
 
-		name_5.setText(p.get("color").label+":");
-		value_5.setText(p.get("color").value);
+        name_3.setText(p.get("producer").label + ":");
+        value_3.setText(p.get("producer").value);
 
-		name_6.setText(p.get("homologation").label+":");
-		value_6.setText(p.get("homologation").value);
+        name_4.setText(p.get("size").label + ":");
+        value_4.setText(p.get("size").value);
 
-		product_image = (StretchingImageView) findViewById(R.id.product_image);
+        name_5.setText(p.get("color").label + ":");
+        value_5.setText(p.get("color").value);
+
+        name_6.setText(p.get("homologation").label + ":");
+        value_6.setText(p.get("homologation").value);
+
+        product_image = (StretchingImageView) findViewById(R.id.product_image);
 
         pb.spin();
 //		product_image.setImageDrawable(getResources().getDrawable(
 //				R.drawable.no_image));
 
-		ImageLoadTask imgLoadTask = new ImageLoadTask(product_image, pb);
-		//imgLoadTask.execute(Utils.HOST + "uploads/" + p.get("image").value);
+        ImageLoadTask imgLoadTask = new ImageLoadTask(product_image, pb);
+        //imgLoadTask.execute(Utils.HOST + "uploads/" + p.get("image").value);
         imgLoadTask.execute(p.get("image").value);
 
-	}
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		finish();
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 
 }

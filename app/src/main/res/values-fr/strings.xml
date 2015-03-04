@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2013 Spanti Nicola
      Licensed under Creative Commons BY-SA, version 4.0
      You can obtain a copy of the license at: https://creativecommons.org/licenses/by-sa/4.0/
@@ -54,4 +53,5 @@
     <string name="term_of_use_text">Terms Of Use</string>
     <string name="version_text">Version: 1.0.1</string>
     <string name="contact_otentico_text">otenti.co</string>
+    <string name="empty_history">Scan History is empty...</string>
 </resources>

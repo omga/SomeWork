@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.otentico.android.model.DrawerItem;
 
@@ -39,14 +37,16 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
 
     //return the layout of activity that extends this class
     protected abstract int getActivityLayout();
+
     //return the drawer layout id of activity that extends this class (make sure your activity layout have android.support.v4.widget.DrawerLayout)
     protected abstract int getDrawerLayout();
 
-    protected void setToolbarVisibility(int alpha){
-        if(mToolbar!=null){
+    protected void setToolbarVisibility(int alpha) {
+        if (mToolbar != null) {
             mToolbar.setBackgroundColor(0x00ffffff);
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
         cubeHomeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(BaseFragmentActivity.this instanceof MainScreen)) {
+                if (!(BaseFragmentActivity.this instanceof MainScreen)) {
                     Intent i = new Intent(BaseFragmentActivity.this, MainScreen.class);
                     startActivity(i);
                     finish();
@@ -170,13 +170,13 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
         mDrawerList.setItemChecked(position, false);
 //        setTitle(mDrawerItems.get(position - 1).getTitle());
         mDrawerLayout.closeDrawer(mDrawerList);
-        if(mDrawerItems.get(position-1).getTag()==DrawerItem.DRAWER_ITEM_TAG_TERMS_OF_USE) {
-            if(!(BaseFragmentActivity.this instanceof TermsOfUseActivity)) {
+        if (mDrawerItems.get(position - 1).getTag() == DrawerItem.DRAWER_ITEM_TAG_TERMS_OF_USE) {
+            if (!(BaseFragmentActivity.this instanceof TermsOfUseActivity)) {
                 Intent i = new Intent(BaseFragmentActivity.this, TermsOfUseActivity.class);
                 startActivity(i);
             }
-        } else if(mDrawerItems.get(position-1).getTag()==DrawerItem.DRAWER_ITEM_TAG_SCAN_HISTORY) {
-            if(!(BaseFragmentActivity.this instanceof RecentHistoryActivity)) {
+        } else if (mDrawerItems.get(position - 1).getTag() == DrawerItem.DRAWER_ITEM_TAG_SCAN_HISTORY) {
+            if (!(BaseFragmentActivity.this instanceof RecentHistoryActivity)) {
                 Intent i = new Intent(BaseFragmentActivity.this, RecentHistoryActivity.class);
                 startActivity(i);
             }

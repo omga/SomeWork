@@ -31,9 +31,9 @@ public class StretchingImageView extends ImageView {
                     setMeasuredDimension(measuredWidth, measuredHeight);
                 } else if (measuredHeight == 0) { //Height set to wrap_content
                     int width = measuredWidth;
-                    int height = width *  drawable.getIntrinsicHeight() / drawable.getIntrinsicWidth();
+                    int height = width * drawable.getIntrinsicHeight() / drawable.getIntrinsicWidth();
                     setMeasuredDimension(width, height);
-                } else if (measuredWidth == 0){ //Width set to wrap_content
+                } else if (measuredWidth == 0) { //Width set to wrap_content
                     int height = measuredHeight;
                     int width = height * drawable.getIntrinsicWidth() / drawable.getIntrinsicHeight();
                     setMeasuredDimension(width, height);

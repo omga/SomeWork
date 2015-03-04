@@ -17,45 +17,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <se.anyro.nfc_reader.view.kbv.KenBurnsView
-
         android:id="@+id/ken_burns_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <LinearLayout
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical">
-
 
         <ImageView
             android:id="@+id/nfc_scan_img"
-            android:layout_width="330dp"
-            android:layout_height="330dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="90dp"
             android:src="@drawable/nfc_scanning_phone_1" />
 
 
         <se.anyro.nfc_reader.font.RobotoTextView
+            android:layout_marginTop="20dp"
             android:id="@+id/welcome_text_1"
             android:layout_gravity="center"
-            android:textSize="40sp"
-            style="@style/TextViewAppearance.Title3"
-            android:text="@string/home_screen_message_1"/>
+            style="@style/TextViewAppearance.Headline3"
+            android:text="@string/home_screen_message_1" />
 
         <se.anyro.nfc_reader.font.RobotoTextView
             android:id="@+id/welcome_text_2"
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
-            android:textSize="24sp"
-            style="@style/TextViewAppearance.Title1"
-            />
+            style="@style/TextViewAppearance.Title1" />
 
 
     </LinearLayout>
@@ -74,26 +68,26 @@
             android:layout_gravity="center"
             android:text="@string/footer_message_first_word"
             style="@style/TextViewAppearance.Caption2"
-            android:textSize="14sp"
-            />
+            android:textSize="12sp" />
+
         <se.anyro.nfc_reader.font.RobotoTextView
             android:padding="1dp"
             android:layout_gravity="center"
             android:text="@string/footer_message_second_word"
             style="@style/TextViewAppearance.Caption3"
             android:textStyle="bold"
-            android:textSize="16sp"
-            />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_main" />
+
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"

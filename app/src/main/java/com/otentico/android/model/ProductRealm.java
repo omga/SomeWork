@@ -1,14 +1,13 @@
 package com.otentico.android.model;
 
 import java.util.Date;
-import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 
 @RealmClass
-public class ProductRealm extends RealmObject{
+public class ProductRealm extends RealmObject {
     @PrimaryKey
     private String uuid;
     private Date date;
