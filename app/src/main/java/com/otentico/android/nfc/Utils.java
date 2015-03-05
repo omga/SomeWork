@@ -16,6 +16,7 @@ import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
@@ -35,18 +36,31 @@ public class Utils {
     public static final String HOST = "http://otenti.co/";
 
 
-    public static Address getAddress(Activity activity) throws IOException {
+    public static Address getAddress(GPSTracker gps, Activity activity) throws IOException {
         LocationManager locationManager = (LocationManager) activity
                 .getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
         String bestProvider = locationManager.getBestProvider(criteria, true);
+        if(bestProvider==null) {
+            Log.d("addr", "bestProvider " + bestProvider);
+            bestProvider = locationManager.getBestProvider(criteria, false);
+            Log.d("addr", "bestProvider " + bestProvider);
+            if(bestProvider==null) {
+                return null;
+            }
 
+        }
         Location lastKnownLocation = locationManager.getLastKnownLocation(bestProvider);
         Log.d("addr", "lst loc" + lastKnownLocation);
         //Location lastKnownLocation = getLastKnownLocation(locationManager);
         if (lastKnownLocation == null) {
-            return null;
+            if(gps!=null) {
+                lastKnownLocation = gps.getLocation();
+                Log.d("addr", "lst loc net" + lastKnownLocation);
+                if (lastKnownLocation == null)
+                    return null;
+            }
         }
         Log.d("addr", "" + criteria);
         Log.d("addr", "" + bestProvider);
@@ -214,6 +228,10 @@ public class Utils {
                 byte[] music = null;
                 try {
                     music = convertStreamToByteArray(in1);
+                    if(Build.VERSION.SDK_INT<21)
+                        mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume(),AudioTrack.getMaxVolume());
+                    else
+                        mAudioTrack.setVolume(AudioTrack.getMaxVolume());
                     mAudioTrack.play();
                     mAudioTrack.write(music, 0, music.length);
                     //mAudioTrack.flush();

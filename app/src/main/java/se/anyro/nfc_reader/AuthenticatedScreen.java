@@ -62,12 +62,12 @@ public class AuthenticatedScreen extends BaseFragmentActivity {
                 actitvity_intent.putExtra(MainScreen.COMPANY_IMAGE_URL,
                         company_logo_url);
                 startActivity(actitvity_intent);
+                finish();
 
 
             }
         });
         Utils.playAudioTrack(this, R.raw.success_sound);
-
     }
 
 }

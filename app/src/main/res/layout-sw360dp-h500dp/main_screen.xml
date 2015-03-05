@@ -49,10 +49,13 @@
             android:text="@string/home_screen_message_1" />
 
         <se.anyro.nfc_reader.font.RobotoTextView
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:id="@+id/welcome_text_2"
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
-            style="@style/TextViewAppearance.Title1_360" />
+            style="@style/TextViewAppearance.Title1_360"
+            />
 
 
     </LinearLayout>

@@ -49,7 +49,8 @@
             android:id="@+id/welcome_text_2"
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
-            style="@style/TextViewAppearance.Title1" />
+            style="@style/TextViewAppearance.Title1"
+            />
 
 
     </LinearLayout>

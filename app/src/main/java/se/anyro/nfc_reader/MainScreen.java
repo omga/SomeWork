@@ -34,6 +34,7 @@ import android.widget.ImageView;
 
 import com.otentico.android.model.Product;
 import com.otentico.android.model.ProductRealm;
+import com.otentico.android.nfc.GPSTracker;
 import com.otentico.android.nfc.NFCAuthInfoTask;
 import com.otentico.android.nfc.OnTaskCompleted;
 import com.otentico.android.nfc.Utils;
@@ -55,7 +56,7 @@ import se.anyro.nfc_reader.view.kbv.KenBurnsView;
 public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted {
 
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-    private boolean debug = false;
+    private boolean debug = true;
 
     public static final String COMPANY_NAME = "COMPANY_NAME";
     public static final String COMPANY_IMAGE_URL = "COMPANY_IMAGE_URL";
@@ -68,6 +69,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
     private NdefMessage mNdefPushMessage;
     private AlertDialog mDialog;
     private String nfc_uid = "";
+    GPSTracker gps;
 
     @Override
     protected int getActivityLayout() {
@@ -82,7 +84,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        gps = new GPSTracker(this);
         mKenBurns = (KenBurnsView) findViewById(R.id.ken_burns_images);
         mKenBurns.setImageResource(R.drawable.background_ot);
         RobotoTextView welcome1 = (RobotoTextView) findViewById(R.id.welcome_text_1);
@@ -155,6 +157,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
             mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
             mAdapter.enableForegroundNdefPush(this, mNdefPushMessage);
         }
+        gps.getLocation();
     }
 
     @SuppressWarnings("deprecation")
@@ -165,6 +168,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
             mAdapter.disableForegroundDispatch(this);
             mAdapter.disableForegroundNdefPush(this);
         }
+        gps.stopUsingGPS();
     }
 
     private void showWirelessSettingsDialog() {
@@ -202,7 +206,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
             NFCAuthInfoTask auth_task = new NFCAuthInfoTask(this);
 
             try {
-                Address address = Utils.getAddress(this);
+                Address address = Utils.getAddress(gps, this);
                 String identity = Utils.getIdentity(this);
                 String androidID = Utils.getAndroidID(this);
                 if (address == null) {
@@ -226,11 +230,12 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
         // auth_task.execute(nfc_uid, "Not Found", "Not Found");
 
         try {
-            Address address = Utils.getAddress(this);
+            Address address = Utils.getAddress(gps, this);
             String identity = Utils.getIdentity(this);
             String androidID = Utils.getAndroidID(this);
 
             if (address == null) {
+
                 auth_task.execute(nfc_uid, "Not Found", "Not Found", identity, androidID);
                 return;
             }
@@ -267,7 +272,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 
         try {
             JSONObject prod = new JSONObject(result);
-            if (prod.length() > 0) {
+            if (prod.length() < 0) {
                 Realm realm = Realm.getInstance(getApplicationContext());
                 realm.beginTransaction();
                 ProductRealm pr = realm.createObject(ProductRealm.class);
