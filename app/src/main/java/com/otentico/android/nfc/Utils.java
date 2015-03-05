@@ -220,7 +220,6 @@ public class Utils {
             @Override
             protected Void doInBackground(Void... params) {
                 int buffMin = AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
-                Log.e("AUDIO","0 "+buffMin);
                 mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
                         AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
                         buffMin, AudioTrack.MODE_STREAM);
@@ -262,7 +261,7 @@ public class Utils {
     }
 
     private static byte[] convertStreamToByteArray(InputStream is) throws IOException {
-        Log.e("AUDIO",""+is.available());
+        Log.d("AUDIO",""+is.available());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buff = new byte[is.available()];
         int i;
@@ -271,9 +270,7 @@ public class Utils {
         }
 
         baos.flush();
-        Log.e("AUDIO","2 "+baos.size());
         byte[] b = baos.toByteArray();
-        Log.e("AUDIO","3 "+b.length);
         baos.close();
         return b; // be sure to close InputStream in calling function
 

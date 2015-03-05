@@ -46,6 +46,8 @@
             android:text="@string/home_screen_message_1" />
 
         <se.anyro.nfc_reader.font.RobotoTextView
+            android:paddingRight="0dp"
+            android:paddingLeft="0dp"
             android:id="@+id/welcome_text_2"
             android:layout_gravity="center"
             android:text="@string/home_screen_message_2"
