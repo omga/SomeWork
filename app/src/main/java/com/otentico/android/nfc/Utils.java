@@ -220,7 +220,7 @@ public class Utils {
 
             @Override
             protected Void doInBackground(Void... params) {
-                int buffMin = AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
+                int buffMin = AudioTrack.getMinBufferSize(44100, channel_out, AudioFormat.ENCODING_PCM_16BIT);
                 mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
                         channel_out, AudioFormat.ENCODING_PCM_16BIT,
                         buffMin, AudioTrack.MODE_STREAM);
@@ -228,10 +228,10 @@ public class Utils {
                 byte[] music = null;
                 try {
                     music = convertStreamToByteArray(in1);
-                    if(Build.VERSION.SDK_INT<21)
-                        mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume(),AudioTrack.getMaxVolume());
-                    else
-                        mAudioTrack.setVolume(AudioTrack.getMaxVolume());
+//                    if(Build.VERSION.SDK_INT<21)
+//                        mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume(),AudioTrack.getMaxVolume());
+//                    else
+//                        mAudioTrack.setVolume(AudioTrack.getMaxVolume());
                     mAudioTrack.play();
                     mAudioTrack.write(music, 0, music.length);
                     //mAudioTrack.flush();
@@ -287,7 +287,7 @@ public class Utils {
             AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC,
                     44100,
                     channel_out,
-                    AudioFormat.ENCODING_PCM_16BIT,
+                    AudioFormat.ENCODING_DEFAULT,
                     (int)totalAudioLen,
                     AudioTrack.MODE_STATIC);
             int offset = 0;
@@ -299,9 +299,9 @@ public class Utils {
             } //don't really know why it works, it reads the file
 
             track.write(rawBytes, 0, (int)totalAudioLen); //write it in the buffer?
-            track.play();
-            track.pause();
-            track.setPlaybackHeadPosition(100); // IMPORTANT to skip the click
+//            track.play();
+//            track.pause();
+//            track.setPlaybackHeadPosition(100); // IMPORTANT to skip the click
             track.setPlaybackRate(44100);
             track.play();  // launch the play
 
