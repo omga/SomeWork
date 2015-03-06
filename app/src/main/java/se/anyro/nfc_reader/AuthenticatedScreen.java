@@ -2,6 +2,7 @@ package se.anyro.nfc_reader;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioFormat;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -67,7 +68,8 @@ public class AuthenticatedScreen extends BaseFragmentActivity {
 
             }
         });
-        Utils.playAudioTrack(this, R.raw.success_sound);
+        Utils.playAudioTrack(this, R.raw.success_sound, AudioFormat.CHANNEL_OUT_STEREO);
+
     }
 
 }

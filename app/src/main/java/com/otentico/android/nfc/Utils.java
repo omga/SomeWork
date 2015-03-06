@@ -23,6 +23,7 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -212,7 +213,7 @@ public class Utils {
         return result;
     }
 
-    public static void playAudioTrack(final Context ctx, final int audioResId) {
+    public static void playAudioTrack(final Context ctx, final int audioResId, final int channel_out) {
         new AsyncTask<Void, Void, Void>() {
             AudioTrack mAudioTrack;
             InputStream in1;
@@ -221,7 +222,7 @@ public class Utils {
             protected Void doInBackground(Void... params) {
                 int buffMin = AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
                 mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-                        AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
+                        channel_out, AudioFormat.ENCODING_PCM_16BIT,
                         buffMin, AudioTrack.MODE_STREAM);
                 in1 = ctx.getResources().openRawResource(audioResId);
                 byte[] music = null;
@@ -274,6 +275,47 @@ public class Utils {
         baos.close();
         return b; // be sure to close InputStream in calling function
 
+    }
+
+    //some short wav files has bad headers or something so this method skips the header (track.setPlaybackHeadPosition(100))
+    public static void playMonoSoundWithBrokenFileHeader(Context ctx, int res, int channel_out){
+        try{
+            long totalAudioLen = 0;
+            InputStream inputStream = ctx.getResources().openRawResource(res); // open the file
+            totalAudioLen = inputStream.available();
+            byte[] rawBytes = new byte[(int)totalAudioLen];
+            AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC,
+                    44100,
+                    channel_out,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    (int)totalAudioLen,
+                    AudioTrack.MODE_STATIC);
+            int offset = 0;
+            int numRead = 0;
+
+            while (offset < rawBytes.length
+                    && (numRead=inputStream.read(rawBytes, offset, rawBytes.length-offset)) >= 0) {
+                offset += numRead;
+            } //don't really know why it works, it reads the file
+
+            track.write(rawBytes, 0, (int)totalAudioLen); //write it in the buffer?
+            track.play();
+            track.pause();
+            track.setPlaybackHeadPosition(100); // IMPORTANT to skip the click
+            track.setPlaybackRate(44100);
+            track.play();  // launch the play
+
+
+            inputStream.close();
+        }
+        catch (FileNotFoundException e) {
+
+            Log.e("HUY", "Error loading audio to bytes", e);
+        } catch (IOException e) {
+            Log.e("HUY", "Error loading audio to bytes", e);
+        } catch (IllegalArgumentException e) {
+            Log.e("HUY", "Error loading audio to bytes", e);
+        }
     }
 
 }
