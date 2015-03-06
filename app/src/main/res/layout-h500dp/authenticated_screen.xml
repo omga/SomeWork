@@ -14,98 +14,110 @@
      limitations under the License.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@drawable/background_ot">
+
+<include
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar" />
+
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_ot">
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+    android:layout_below="@id/toolbar">
 
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <se.anyro.nfc_reader.font.RobotoTextView
-            style="@style/TextViewAppearance.Caption2"
-            android:layout_gravity="center"
-            android:padding="1dp"
-            android:text="@string/footer_message_first_word"
-            android:textSize="12sp" />
-
-        <se.anyro.nfc_reader.font.RobotoTextView
-            style="@style/TextViewAppearance.Caption3"
-            android:layout_gravity="center"
-            android:padding="1dp"
-            android:text="@string/footer_message_second_word"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
-
-
+        >
         <LinearLayout
-            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
 
-
-            <ImageView
-                android:layout_width="220dp"
-                android:layout_height="140dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/positive_icon_500" />
 
             <se.anyro.nfc_reader.font.RobotoTextView
-                style="@style/TextViewAppearance.Headline1"
+                style="@style/TextViewAppearance.Caption2"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/auth_screen_message_1"
-                android:textSize="28sp" />
+                android:padding="1dp"
+                android:text="@string/footer_message_first_word"
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/company_logo"
-                android:layout_width="200dp"
-                android:layout_height="80dp"
+            <se.anyro.nfc_reader.font.RobotoTextView
+                style="@style/TextViewAppearance.Caption3"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/fyshe_logo" />
-
-            <Button
-                android:id="@+id/btnProductInformation"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/border_button"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="@string/product_information_button"
-                android:textColor="@android:color/white" />
-
-
+                android:padding="1dp"
+                android:text="@string/footer_message_second_word"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
 
-        <include
-            layout="@layout/list_view"
-            android:layout_width="@dimen/drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start" />
-    </android.support.v4.widget.DrawerLayout>
-</RelativeLayout>
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/positive_icon_500"
+            android:id="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <se.anyro.nfc_reader.font.RobotoTextView
+            android:layout_marginTop="10dp"
+            style="@style/TextViewAppearance.Headline1"
+            android:textSize="28sp"
+            android:layout_gravity="center"
+            android:text="@string/auth_screen_message_1"
+            android:layout_above="@id/company_logo"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/view" />
+
+        <ImageView
+            android:id="@+id/company_logo"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/fyshe_logo"
+            android:layout_above="@+id/btnProductInformation"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/btnProductInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+
+            android:background="@drawable/border_button"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@android:color/white"
+            android:text="@string/product_information_button"
+            android:layout_above="@id/linearLayout"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/list_view"
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" />
+</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

@@ -16,6 +16,7 @@
  */
 package se.anyro.nfc_reader;
 
+import android.media.AudioFormat;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -43,7 +44,9 @@ public class NotAuthenticatedScreen extends BaseFragmentActivity {
 //        setContentView(R.layout.not_authenticated_screen);
 //        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(mToolbar);
-        Utils.playAudioTrack(this, R.raw.tone_his_self);
+        //Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error4, AudioFormat.CHANNEL_OUT_MONO);
+        Utils.playAudioTrack(this, R.raw.bt_error,AudioFormat.CHANNEL_OUT_MONO);
+        //Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error_sound, AudioFormat.CHANNEL_OUT_STEREO);
 
     }
 
