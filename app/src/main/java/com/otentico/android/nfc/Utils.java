@@ -17,20 +17,18 @@ import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-
-import se.anyro.nfc_reader.R;
 
 public class Utils {
 
@@ -43,11 +41,11 @@ public class Utils {
         Criteria criteria = new Criteria();
 
         String bestProvider = locationManager.getBestProvider(criteria, true);
-        if(bestProvider==null) {
+        if (bestProvider == null) {
             Log.d("addr", "bestProvider " + bestProvider);
             bestProvider = locationManager.getBestProvider(criteria, false);
             Log.d("addr", "bestProvider " + bestProvider);
-            if(bestProvider==null) {
+            if (bestProvider == null) {
                 return null;
             }
 
@@ -56,18 +54,15 @@ public class Utils {
         Log.d("addr", "lst loc" + lastKnownLocation);
         //Location lastKnownLocation = getLastKnownLocation(locationManager);
         if (lastKnownLocation == null) {
-            if(gps!=null) {
+            if (gps != null) {
                 lastKnownLocation = gps.getLocation();
                 Log.d("addr", "lst loc net" + lastKnownLocation);
                 if (lastKnownLocation == null)
                     return null;
             }
         }
-        Log.d("addr", "" + criteria);
-        Log.d("addr", "" + bestProvider);
-        Log.d("addr", "" + lastKnownLocation + "lat: " + lastKnownLocation.getLatitude() + "lon: " + lastKnownLocation.getLongitude());
+
         Geocoder geocoder = new Geocoder(activity, Locale.US);
-        Log.d("addr", "locale: " + Locale.getDefault());
         List<Address> address = geocoder.getFromLocation(
                 lastKnownLocation.getLatitude(),
                 lastKnownLocation.getLongitude(), 1);
@@ -228,12 +223,15 @@ public class Utils {
                 byte[] music = null;
                 try {
                     music = convertStreamToByteArray(in1);
-//                    if(Build.VERSION.SDK_INT<21)
-//                        mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume(),AudioTrack.getMaxVolume());
-//                    else
-//                        mAudioTrack.setVolume(AudioTrack.getMaxVolume());
+                    if (Build.VERSION.SDK_INT < 21)
+                        mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume(), AudioTrack.getMaxVolume());
+                    else
+                        mAudioTrack.setVolume(AudioTrack.getMaxVolume());
+
                     mAudioTrack.play();
                     mAudioTrack.write(music, 0, music.length);
+
+
                     //mAudioTrack.flush();
                     //in1.close();
                 } catch (IOException e) {
@@ -253,7 +251,7 @@ public class Utils {
                     mAudioTrack = null;
                 } catch (IOException e) {
 
-                    Log.e("AUDIO","onPostExecute "+ e.getMessage());
+                    Log.e("AUDIO", "onPostExecute " + e.getMessage());
                 }
 
             }
@@ -262,7 +260,7 @@ public class Utils {
     }
 
     private static byte[] convertStreamToByteArray(InputStream is) throws IOException {
-        Log.d("AUDIO",""+is.available());
+        Log.d("AUDIO", "" + is.available());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buff = new byte[is.available()];
         int i;
@@ -278,44 +276,69 @@ public class Utils {
     }
 
     //some short wav files has bad headers or something so this method skips the header (track.setPlaybackHeadPosition(100))
-    public static void playMonoSoundWithBrokenFileHeader(Context ctx, int res, int channel_out){
-        try{
-            long totalAudioLen = 0;
-            InputStream inputStream = ctx.getResources().openRawResource(res); // open the file
-            totalAudioLen = inputStream.available();
-            byte[] rawBytes = new byte[(int)totalAudioLen];
-            AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC,
-                    44100,
-                    channel_out,
-                    AudioFormat.ENCODING_DEFAULT,
-                    (int)totalAudioLen,
-                    AudioTrack.MODE_STATIC);
-            int offset = 0;
-            int numRead = 0;
+    public static void playMonoSoundWithBrokenFileHeader(final Context ctx, final int res, final int channel_out) {
+        //final Handler h = new Handler();
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
 
-            while (offset < rawBytes.length
-                    && (numRead=inputStream.read(rawBytes, offset, rawBytes.length-offset)) >= 0) {
-                offset += numRead;
-            } //don't really know why it works, it reads the file
+                try {
+                    long totalAudioLen = 0;
+                    InputStream inputStream = ctx.getResources().openRawResource(res); // open the file
+                    totalAudioLen = inputStream.available();
+                    byte[] rawBytes = new byte[(int) totalAudioLen];
+                    final AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC,
+                            44100,
+                            channel_out,
+                            AudioFormat.ENCODING_PCM_16BIT,
+                            (int) totalAudioLen,
+                            AudioTrack.MODE_STATIC);
+                    int offset = 0;
+                    int numRead = 0;
 
-            track.write(rawBytes, 0, (int)totalAudioLen); //write it in the buffer?
+                    while (offset < rawBytes.length
+                            && (numRead = inputStream.read(rawBytes, offset, rawBytes.length - offset)) >= 0) {
+                        offset += numRead;
+                    } //don't really know why it works, it reads the file
+
+                    track.write(rawBytes, 0, (int) totalAudioLen); //write it in the buffer?
 //            track.play();
 //            track.pause();
-//            track.setPlaybackHeadPosition(100); // IMPORTANT to skip the click
-            track.setPlaybackRate(44100);
-            track.play();  // launch the play
+                    if (Build.VERSION.SDK_INT < 21)
+                        track.setStereoVolume(AudioTrack.getMaxVolume(), AudioTrack.getMaxVolume());
+                    else
+                        track.setVolume(AudioTrack.getMaxVolume());
+
+                    track.setPlaybackHeadPosition(100); // IMPORTANT to skip the click
+                    track.setPlaybackRate(44100);
+
+                    track.play();  // launch the play
+// set volume to 0 after 1.2 sec of playing so we won't shear crackling in the end :)
+//                    h.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (Build.VERSION.SDK_INT < 21)
+//                                track.setStereoVolume(0, 0);
+//                            else
+//                                track.setVolume(0);
+//                            track.stop();
+//                        }
+//                    }, 1200);
 
 
-            inputStream.close();
-        }
-        catch (FileNotFoundException e) {
+                    inputStream.close();
+                } catch (FileNotFoundException e) {
 
-            Log.e("HUY", "Error loading audio to bytes", e);
-        } catch (IOException e) {
-            Log.e("HUY", "Error loading audio to bytes", e);
-        } catch (IllegalArgumentException e) {
-            Log.e("HUY", "Error loading audio to bytes", e);
-        }
+                    Log.e("HUY", "Error loading audio to bytes", e);
+                } catch (IOException e) {
+                    Log.e("HUY", "Error loading audio to bytes", e);
+                } catch (IllegalArgumentException e) {
+                    Log.e("HUY", "Error loading audio to bytes", e);
+                }
+
+                return null;
+            }
+        }.execute();
     }
 
 }

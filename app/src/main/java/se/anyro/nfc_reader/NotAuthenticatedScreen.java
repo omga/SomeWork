@@ -19,12 +19,11 @@ package se.anyro.nfc_reader;
 import android.media.AudioFormat;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.otentico.android.nfc.Utils;
 
 
-public class NotAuthenticatedScreen extends BaseFragmentActivity implements View.OnClickListener{
+public class NotAuthenticatedScreen extends BaseFragmentActivity {
 
     private Toolbar mToolbar;
 
@@ -41,32 +40,11 @@ public class NotAuthenticatedScreen extends BaseFragmentActivity implements View
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        setContentView(R.layout.not_authenticated_screen);
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(mToolbar);
-        Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error4, AudioFormat.CHANNEL_OUT_MONO);
-        //Utils.playAudioTrack(this, R.raw.bt_error,AudioFormat.CHANNEL_OUT_MONO);
-        //Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error_sound, AudioFormat.CHANNEL_OUT_STEREO);
+
+       // Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error_sound, AudioFormat.CHANNEL_OUT_STEREO);
+         Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error4, AudioFormat.CHANNEL_OUT_MONO);
+
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.b1:
-                Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error5, AudioFormat.CHANNEL_OUT_MONO);
-                break;
-            case R.id.b2:
-                Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error5, AudioFormat.CHANNEL_OUT_STEREO);
-                break;
-            case R.id.b3:
-                Utils.playAudioTrack(this, R.raw.error5,AudioFormat.CHANNEL_OUT_MONO);
-                break;
-            case R.id.b4:
-                Utils.playAudioTrack(this, R.raw.error5, AudioFormat.CHANNEL_OUT_STEREO);
-                break;
-
-        }
-    }
 }

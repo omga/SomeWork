@@ -2,7 +2,7 @@ package com.otentico.android.model;
 
 public class DrawerItem {
     /* Commented tags are expected in future updates.
-	 */
+     */
 
     public static final int DRAWER_ITEM_TAG_SCAN_HISTORY = 26;
     public static final int DRAWER_ITEM_TAG_TERMS_OF_USE = 27;

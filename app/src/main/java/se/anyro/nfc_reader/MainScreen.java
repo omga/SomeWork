@@ -56,7 +56,7 @@ import se.anyro.nfc_reader.view.kbv.KenBurnsView;
 public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted {
 
     // Set this value to TRUE if you want to mock the NFC tag info for tests
-    private boolean debug = true;
+    private boolean debug = false;
 
     public static final String COMPANY_NAME = "COMPANY_NAME";
     public static final String COMPANY_IMAGE_URL = "COMPANY_IMAGE_URL";
@@ -108,7 +108,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
         mAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (!debug && mAdapter == null) {
-			showMessage(R.string.error, R.string.no_nfc);
+            showMessage(R.string.error, R.string.no_nfc);
 //			finish();
             return;
         }
@@ -272,7 +272,7 @@ public class MainScreen extends BaseFragmentActivity implements OnTaskCompleted 
 
         try {
             JSONObject prod = new JSONObject(result);
-            if (prod.length() < 0) {
+            if (prod.length() > 0) {
                 Realm realm = Realm.getInstance(getApplicationContext());
                 realm.beginTransaction();
                 ProductRealm pr = realm.createObject(ProductRealm.class);
