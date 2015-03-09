@@ -68,11 +68,11 @@
     </style>
     <!-- Typography style 2 -->
 
-    <style name="TextViewAppearance.Display2" parent="@style/TextViewAppearance">
-        <item name="typeface">robotoThin</item>
-        <item name="android:textSize">45sp</item>
-        <item name="android:textColor">@color/main_color_grey_200</item>
-    </style>
+    <!--<style name="TextViewAppearance.Display2" parent="@style/TextViewAppearance">-->
+        <!--<item name="typeface">robotoThin</item>-->
+        <!--<item name="android:textSize">45sp</item>-->
+        <!--<item name="android:textColor">@color/main_color_grey_200</item>-->
+    <!--</style>-->
 
     <style name="TextViewAppearance.Headline2" parent="@style/TextViewAppearance">
         <item name="typeface">robotoLight</item>

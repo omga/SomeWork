@@ -277,7 +277,7 @@ public class Utils {
 
     //some short wav files has bad headers or something so this method skips the header (track.setPlaybackHeadPosition(100))
     public static void playMonoSoundWithBrokenFileHeader(final Context ctx, final int res, final int channel_out) {
-        //final Handler h = new Handler();
+        final Handler h = new Handler();
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {

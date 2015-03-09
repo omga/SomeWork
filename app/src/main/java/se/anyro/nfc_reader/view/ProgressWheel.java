@@ -188,7 +188,7 @@ public class ProgressWheel extends View {
         textPaint.setTextSize(textSize);
         if (!isInEditMode()) {
             textPaint.setTypeface(Typeface.createFromAsset(getContext()
-                    .getAssets(), "fonts/Fontello.ttf"));
+                    .getAssets(), "fonts/Roboto-Regular.ttf"));
         }
 
         contourPaint.setColor(contourColor);

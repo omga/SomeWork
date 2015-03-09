@@ -41,8 +41,8 @@ public class NotAuthenticatedScreen extends BaseFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error_sound, AudioFormat.CHANNEL_OUT_STEREO);
-         Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error4, AudioFormat.CHANNEL_OUT_MONO);
+        //Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error_sound, AudioFormat.CHANNEL_OUT_STEREO);
+        Utils.playMonoSoundWithBrokenFileHeader(this, R.raw.error4, AudioFormat.CHANNEL_OUT_MONO);
 
 
     }

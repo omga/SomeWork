@@ -73,24 +73,13 @@
         <item name="android:textColor">@drawable/selector_text_full</item>
     </style>
 
-    <style name="CircularProgressBarStyle.1" parent="@style/CircularProgressBarStyle.Empty">
-        <item name="cpb_iconComplete">@drawable/ok_green</item>
-        <item name="cpb_iconError">@drawable/cancel_red</item>
-    </style>
+
 
     <style name="CircularProgressBarStyle.2" parent="@style/CircularProgressBarStyle.Full">
         <item name="cpb_selectorComplete">@drawable/cpb_idle_state_selector_full_complete</item>
         <item name="cpb_selectorError">@drawable/cpb_idle_state_selector_full_error</item>
     </style>
 
-    <style name="CircularProgressBarStyle.3" parent="@style/CircularProgressBarStyle.Full">
-        <item name="cpb_iconComplete">@drawable/ok_white</item>
-        <item name="cpb_iconError">@drawable/cancel_white</item>
-    </style>
 
-    <style name="CircularProgressBarStyle.4" parent="@style/CircularProgressBarStyle.Empty">
-        <item name="cpb_iconComplete">@drawable/done_green</item>
-        <item name="cpb_iconError">@drawable/error_red</item>
-    </style>
 
 </resources>
